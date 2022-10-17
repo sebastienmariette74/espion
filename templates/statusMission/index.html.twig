@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Statuts{% endblock %}
+
+{% block body %}
+
+<h1>Statuts</h1>
+<a href="{{ path('admin_statusMission_create') }}">ajouter un statut</a>
+
+{% for status in statusMission %}
+<div>
+    {{ status.name }}
+    <a href="{{ path('admin_statusMission_update' ,{id : status.id}) }}">modifier</a>
+    <a href="{{ path('admin_statusMission_delete', {id : status.id}) }}">supprimer</a>
+</div>
+
+{% endfor %}
+
+{% endblock %}

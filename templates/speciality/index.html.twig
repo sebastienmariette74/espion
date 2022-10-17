@@ -1,17 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Nationalités{% endblock %}
+{% block title %}Spécialités{% endblock %}
 
 {% block body %}
 
 <h1>Nationalités</h1>
-<a href="{{ path('admin_nationality_create') }}">ajouter une nationalité</a>
+<a href="{{ path('admin_speciality_create') }}">ajouter une nationalité</a>
 
-{% for nationality in nationalities %}
+{% for speciality in specialities %}
 <div>
-    {{ nationality.nationality }}
-    <a href="{{ path('admin_nationality_update' ,{id : nationality.id}) }}">modifier</a>
-    <a href="{{ path('admin_nationality_delete', {id : nationality.id}) }}">supprimer</a>
+    {{ speciality.name }}
+    <a href="{{ path('admin_speciality_update' ,{id : speciality.id}) }}">modifier</a>
+    <a href="{{ path('admin_speciality_delete', {id : speciality.id}) }}">supprimer</a>
 </div>
 
 {% endfor %}
