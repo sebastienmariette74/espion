@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nationalités{% endblock %}
+
+{% block body %}
+
+<h1>Nationalités</h1>
+
+{{ form_start(form) }}
+        {{ form_row(form.nationality) }}
+        <div class="my-3">
+            <button type="submit" class="btn btn-sm btn-warning">AJOUTER</button>
+        </div>
+        {{ form_end(form) }}
+
+{% endblock %}
