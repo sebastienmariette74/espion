@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Les contacts{% endblock %}
+
+{% block body %}
+
+<h1>Les contacts</h1>
+<a href="{{ path('admin_contacts_create') }}">ajouter un contact</a>
+
+{% for contact in contacts %}
+
+<div>
+    Prénom : {{ contact.firstname }} <br>
+    Nom : {{ contact.lastname }} <br>
+    Date de naissance : {{ contact.dateOfBirth |date('d-m-Y') }} <br>
+    Code d'identification : {{ contact.code }} <br>
+    Nationalité : {{ contact.nationality }} <br>
+    
+    <a href="{{ path('admin_contacts_update' ,{id : contact.id}) }}">modifier</a>
+    <a href="{{ path('admin_contacts_delete', {id : contact.id}) }}">supprimer</a>
+</div>
+
+{% endfor %}
+
+{% endblock %}
