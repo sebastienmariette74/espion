@@ -2,7 +2,7 @@
 
 namespace App\Form;
 
-use App\Entity\Agent;
+use App\Entity\Target;
 use App\Entity\Nationality;
 use App\Entity\Speciality;
 use App\Repository\NationalityRepository;
@@ -16,7 +16,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class AgentType extends AbstractType
+class TargetType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -27,10 +27,13 @@ class AgentType extends AbstractType
             ->add('lastname', TextType::class, [
                 'label' => 'Nom'
             ])
+            // ->add('dateOfBirth', DateType::class)
             ->add('dateOfBirth', DateType::class, [
-                'label' => 'Date de naissance',
                 'widget' => 'single_text',
+                'label' => 'Date de naissance',
                 'input'  => 'datetime_immutable',
+                // 'format' => 'yyy-MM-dd'
+
             ])
             ->add('code', TextType::class, [
                 'label' => 'Nom de code'
@@ -46,17 +49,17 @@ class AgentType extends AbstractType
                 'choice_label' => 'nationality'
 
             ])
-            ->add('speciality', EntityType::class, [
-                'label' => 'Spécialité',
-                'expanded' => false,
-                'class' => Speciality::class,
-                'multiple' => true,
-                'query_builder' => function (SpecialityRepository $sr) {
-                    return $sr->createQueryBuilder('s')
-                        ->orderBy('s.name', 'ASC');
-                },
-                'choice_label' => 'name'
-            ])
+            // ->add('speciality', EntityType::class, [
+            //     'label' => 'Spécialité',
+            //     'expanded' => false,
+            //     'class' => Speciality::class,
+            //     'multiple' => true,
+            //     'query_builder' => function (SpecialityRepository $sr) {
+            //         return $sr->createQueryBuilder('s')
+            //             ->orderBy('s.name', 'ASC');
+            //     },
+            //     'choice_label' => 'name'
+            // ])
             // ->add('missions', CollectionType::class, [
             //     'label' => 'Prénom'
             // ])
@@ -66,7 +69,7 @@ class AgentType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Agent::class,
+            'data_class' => Target::class,
         ]);
     }
 }

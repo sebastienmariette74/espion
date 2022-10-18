@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Les cibles{% endblock %}
+
+{% block body %}
+
+<h1>Les cibles</h1>
+<a href="{{ path('admin_targets_create') }}">ajouter une target</a>
+
+{% for target in targets %}
+{# {{ dump(target) }} #}
+
+<div>
+    Prénom : {{ target.firstname }} <br>
+    Nom : {{ target.lastname }} <br>
+    Date de naissance : {{ target.dateOfBirth |date('d-m-Y') }} <br>
+    Code d'identification : {{ target.code }} <br>
+    Nationalité : {{ target.nationality }} <br>
+    
+    <a href="{{ path('admin_targets_update' ,{id : target.id}) }}">modifier</a>
+    <a href="{{ path('admin_targets_delete', {id : target.id}) }}">supprimer</a>
+</div>
+
+{% endfor %}
+
+{% endblock %}
