@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Les agents{% endblock %}
+
+{% block body %}
+
+<h1>Les agents</h1>
+<a href="{{ path('admin_agents_create') }}">ajouter un agent</a>
+
+{% for agent in agents %}
+{# {{ dump(agent) }} #}
+
+<div>
+    Prénom : {{ agent.firstname }} <br>
+    Nom : {{ agent.lastname }} <br>
+    Date de naissance : {{ agent.dateOfBirth |date('d-m-Y') }} <br>
+    Code d'identification : {{ agent.code }} <br>
+    Nationalité : {{ agent.nationality }} <br>
+    Spécialités : 
+    {% for speciality in agent.speciality %}
+        {{ speciality.name }} -
+    {% endfor %}
+
+    <a href="{{ path('admin_agents_update' ,{id : agent.id}) }}">modifier</a>
+    <a href="{{ path('admin_agents_delete', {id : agent.id}) }}">supprimer</a>
+</div>
+
+{% endfor %}
+
+{% endblock %}

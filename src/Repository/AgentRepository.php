@@ -39,20 +39,19 @@ class AgentRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Agent[] Returns an array of Agent objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('a')
-//            ->andWhere('a.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('a.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+   /**
+    * @return Agent[] Returns an array of Agent objects
+    */
+   public function findAllNationality(): array
+   {
+       return $this->createQueryBuilder('a')
+            ->select('a.id, a.firstname, a.lastname, a.dateOfBirth, a.code, n.nationality')
+            ->innerJoin('a.nationality', 'n')
+            // ->innerJoin("a.speciality", "s")
+           ->getQuery()
+           ->getResult()
+       ;
+   }
 
 //    public function findOneBySomeField($value): ?Agent
 //    {
