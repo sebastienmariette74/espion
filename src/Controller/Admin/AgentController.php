@@ -19,13 +19,8 @@ class AgentController extends AbstractController
     #[Route('/', name: '')]
     public function index(AgentRepository $agentRepo, SpecialityRepository $specialityRepo): Response
     {
-        // $agents = $agentRepo->findAllNationality();
         $agents = $agentRepo->findAll();
         $specialities = $specialityRepo->findAll();
-
-        // $agents = $agentRepo->findAll();
-        // dd($agents);
-        // dd($specialities);
 
         return $this->render('agent/index.html.twig', compact('agents', 'specialities'));
     }
@@ -36,15 +31,9 @@ class AgentController extends AbstractController
         $agent = new Agent();
         
         $form = $this->createForm(AgentType::class, $agent);
-        // dd($form->getData());
-        // $form->remove('dateOfBirth');
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
-            // dd($form->get('nationality')->getData());
-            // $agent->setNationality();
-            $agent->setNationality($form->get('nationality')->getData());
 
             $em->persist($agent);
             $em->flush();
