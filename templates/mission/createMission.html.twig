@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer une mission{% endblock %}
+
+{% block body %}
+
+<h1>Créer une mission</h1>
+
+{{ form_start(form) }}
+<div class="form_firstPart">
+    {{ form_row(form.codeName) }}
+    {{ form_row(form.title) }}
+    {{ form_row(form.description) }}
+    {{ form_row(form.begin_at) }}
+    {{ form_row(form.finish_at) }}
+    {{ form_row(form.country) }}
+    {{ form_row(form.target) }}
+    {{ form_row(form.speciality) }}
+</div>
+<div class="form_secondPart">
+    {{ form_row(form.type) }}
+    {{ form_row(form.status) }}
+    {{ form_row(form.hidingPlace) }}
+    {{ form_row(form.agent) }}
+    {{ form_row(form.contact) }}
+    <div class="my-3">
+        <button type="submit" class="btn btn-sm btn-warning">AJOUTER</button>
+    </div>
+</div>
+{{ form_end(form) }}
+
+{% endblock %}

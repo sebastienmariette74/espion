@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer une planque{% endblock %}
+
+{% block body %}
+
+<h1>Créer une planque</h1>
+
+{{ form_start(form) }}
+        {{ form_row(form.code) }}
+        {{ form_row(form.address) }}
+        {{ form_row(form.zipcode) }}
+        {{ form_row(form.city) }}
+        {{ form_row(form.country) }}
+        {{ form_row(form.type) }}
+        {# {{ form_row(form.missions) }} #}
+        <div class="my-3">
+            <button type="submit" class="btn btn-sm btn-warning">AJOUTER</button>
+        </div>
+        {{ form_end(form) }}
+
+{% endblock %}

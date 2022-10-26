@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier la specialité{% endblock %}
+
+{% block body %}
+
+<h1>Modifier la specialité</h1>
+
+{{ form_start(form) }}
+{{ form_row(form.name) }}
+<div class="my-3">
+    <button type="submit" class="btn btn-sm btn-warning">MODIFIER</button>
+</div>
+{{ form_end(form) }}
+
+{% endblock %}

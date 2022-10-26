@@ -28,12 +28,12 @@ class Target
     #[ORM\Column(length: 255)]
     private ?string $code = null;
 
-    #[ORM\ManyToOne(inversedBy: 'targets')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Nationality $nationality = null;
-
     #[ORM\ManyToMany(targetEntity: Mission::class, mappedBy: 'target')]
     private Collection $missions;
+
+    #[ORM\ManyToOne(inversedBy: 'targets')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Country $country = null;
 
     public function __construct()
     {
@@ -93,18 +93,6 @@ class Target
         return $this;
     }
 
-    public function getNationality(): ?Nationality
-    {
-        return $this->nationality;
-    }
-
-    public function setNationality(?Nationality $nationality): self
-    {
-        $this->nationality = $nationality;
-
-        return $this;
-    }
-
     /**
      * @return Collection<int, Mission>
      */
@@ -128,6 +116,18 @@ class Target
         if ($this->missions->removeElement($mission)) {
             $mission->removeTarget($this);
         }
+
+        return $this;
+    }
+
+    public function getCountry(): ?Country
+    {
+        return $this->country;
+    }
+
+    public function setCountry(?Country $country): self
+    {
+        $this->country = $country;
 
         return $this;
     }
