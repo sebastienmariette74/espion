@@ -28,12 +28,12 @@ class Contact
     #[ORM\Column(length: 255)]
     private ?string $code = null;
 
-    #[ORM\ManyToOne(inversedBy: 'contacts')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Nationality $nationality = null;
-
     #[ORM\ManyToMany(targetEntity: Mission::class, mappedBy: 'contact')]
     private Collection $missions;
+
+    #[ORM\ManyToOne(inversedBy: 'contacts')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Country $country = null;
 
     public function __construct()
     {
@@ -93,18 +93,6 @@ class Contact
         return $this;
     }
 
-    public function getNationality(): ?Nationality
-    {
-        return $this->nationality;
-    }
-
-    public function setNationality(?Nationality $nationality): self
-    {
-        $this->nationality = $nationality;
-
-        return $this;
-    }
-
     /**
      * @return Collection<int, Mission>
      */
@@ -128,6 +116,23 @@ class Contact
         if ($this->missions->removeElement($mission)) {
             $mission->removeContact($this);
         }
+
+        return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->firstname;
+    }
+
+    public function getCountry(): ?Country
+    {
+        return $this->country;
+    }
+
+    public function setCountry(?Country $country): self
+    {
+        $this->country = $country;
 
         return $this;
     }

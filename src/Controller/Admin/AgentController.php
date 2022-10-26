@@ -21,6 +21,7 @@ class AgentController extends AbstractController
     {
         $agents = $agentRepo->findAll();
         $specialities = $specialityRepo->findAll();
+        // dd($agents[0]->getNationality());
 
         return $this->render('agent/index.html.twig', compact('agents', 'specialities'));
     }
@@ -34,7 +35,7 @@ class AgentController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
+            // dd($agent);
             $em->persist($agent);
             $em->flush();
 

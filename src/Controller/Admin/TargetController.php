@@ -36,10 +36,6 @@ class TargetController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            // dd($form->get('nationality')->getData());
-            // $target->setNationality();
-            $target->setNationality($form->get('nationality')->getData());
-
             $em->persist($target);
             $em->flush();
 

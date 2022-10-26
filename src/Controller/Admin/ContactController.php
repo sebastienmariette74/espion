@@ -35,10 +35,6 @@ class ContactController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            // dd($form->get('nationality')->getData());
-            // $contact->setNationality();
-            $contact->setNationality($form->get('nationality')->getData());
-
             $em->persist($contact);
             $em->flush();
 

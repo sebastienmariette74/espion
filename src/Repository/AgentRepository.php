@@ -53,6 +53,20 @@ class AgentRepository extends ServiceEntityRepository
        ;
    }
 
+   /**
+    * @return Agent[] Returns an array of Agent objects
+    */
+   public function findAllByCountries($countries): array
+   {
+       return $this->createQueryBuilder('a')
+       ->innerJoin('a.country', 'c')
+       ->where('c.name NOT IN (:countries)')
+            ->setParameter('countries', $countries)
+           ->getQuery()
+           ->getResult()
+       ;
+   }
+
 //    public function findOneBySomeField($value): ?Agent
 //    {
 //        return $this->createQueryBuilder('a')

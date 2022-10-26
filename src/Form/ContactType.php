@@ -3,7 +3,9 @@
 namespace App\Form;
 
 use App\Entity\Contact;
+use App\Entity\Country;
 use App\Entity\Nationality;
+use App\Repository\CountryRepository;
 use App\Repository\NationalityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -23,7 +25,6 @@ class ContactType extends AbstractType
             ->add('lastname', TextType::class, [
                 'label' => 'Nom'
             ])
-            // ->add('dateOfBirth', DateType::class)
             ->add('dateOfBirth', DateType::class, [
                 'widget' => 'single_text',
                 'label' => 'Date de naissance',
@@ -32,32 +33,18 @@ class ContactType extends AbstractType
             ])
             ->add('code', TextType::class, [
                 'label' => 'Nom de code'
-            ])
-            ->add('nationality', EntityType::class, [
-                'placeholder' => 'Quelle est la nationalité ?',
-                'class' => Nationality::class,
-                'label' => 'Nationalité',
-                'query_builder' => function (NationalityRepository $nr) {
-                    return $nr->createQueryBuilder('n')
-                        ->orderBy('n.nationality', 'ASC');
+            ])            
+            ->add('country', EntityType::class, [
+                'placeholder' => 'Pays',
+                'class' => Country::class,
+                'label' => 'Pays',
+                "required" => false,
+                'query_builder' => function (CountryRepository $cr) {
+                    return $cr->createQueryBuilder('c')
+                        ->orderBy('c.name', 'ASC');
                 },
-                'choice_label' => 'nationality'
-
+                'choice_label' => 'name'
             ])
-            // ->add('speciality', EntityType::class, [
-            //     'label' => 'Spécialité',
-            //     'expanded' => false,
-            //     'class' => Speciality::class,
-            //     'multiple' => true,
-            //     'query_builder' => function (SpecialityRepository $sr) {
-            //         return $sr->createQueryBuilder('s')
-            //             ->orderBy('s.name', 'ASC');
-            //     },
-            //     'choice_label' => 'name'
-            // ])
-            // ->add('missions', CollectionType::class, [
-            //     'label' => 'Prénom'
-            // ])
         ;
     }
 

@@ -15,7 +15,13 @@
     </head>
     <body>
         {% include "_layouts/_navbar.html.twig" %}
-        {% include "_layouts/_main.html.twig" %}
-        {% block body %}{% endblock %}
+        <div class="row">
+            <div class="col-2">
+                {% include "_layouts/_main.html.twig" %}
+            </div>
+            <div class="col-10">
+                {% block body %}{% endblock %}
+            </div>
+        </div>
     </body>
 </html>

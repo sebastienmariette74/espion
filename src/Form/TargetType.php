@@ -2,9 +2,11 @@
 
 namespace App\Form;
 
+use App\Entity\Country;
 use App\Entity\Target;
 use App\Entity\Nationality;
 use App\Entity\Speciality;
+use App\Repository\CountryRepository;
 use App\Repository\NationalityRepository;
 use App\Repository\SpecialityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -38,31 +40,16 @@ class TargetType extends AbstractType
             ->add('code', TextType::class, [
                 'label' => 'Nom de code'
             ])
-            ->add('nationality', EntityType::class, [
-                'placeholder' => 'Quelle est la nationalité ?',
-                'class' => Nationality::class,
-                'label' => 'Nationalité',
-                'query_builder' => function (NationalityRepository $nr) {
-                    return $nr->createQueryBuilder('n')
-                        ->orderBy('n.nationality', 'ASC');
+            ->add('country', EntityType::class, [
+                'placeholder' => "Quel est le pays d'origine ?",
+                'class' => Country::class,
+                'label' => 'Pays',
+                'query_builder' => function (CountryRepository $cr) {
+                    return $cr->createQueryBuilder('c')
+                        ->orderBy('c.name', 'ASC');
                 },
-                'choice_label' => 'nationality'
-
+                'choice_label' => 'name'
             ])
-            // ->add('speciality', EntityType::class, [
-            //     'label' => 'Spécialité',
-            //     'expanded' => false,
-            //     'class' => Speciality::class,
-            //     'multiple' => true,
-            //     'query_builder' => function (SpecialityRepository $sr) {
-            //         return $sr->createQueryBuilder('s')
-            //             ->orderBy('s.name', 'ASC');
-            //     },
-            //     'choice_label' => 'name'
-            // ])
-            // ->add('missions', CollectionType::class, [
-            //     'label' => 'Prénom'
-            // ])
         ;
     }
 

@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{mission.title}}{% endblock %}
+
+{% block body %}
+
+<h1>{{ mission.title }}</h1>
+<a href="{{ path('admin_missions_create') }}">ajouter une mission</a>
+{# <pre>
+    {{ dump(mission.agent) }}
+</pre> #}
+<div>
+    Titre : {{ mission.title }} <br>
+    Description : {{ mission.description }} <br>
+    Nom de code : {{ mission.codeName }} <br>
+    Date de début : {{ mission.beginAt |date('d-m-Y') }} <br>
+    Date de fin : {{ mission.finishAt |date('d-m-Y') }} <br>
+    Pays : {{ mission.country.name }} <br>
+    Type : {{ mission.type }} <br>
+    Statut : {{ mission.status }} <br>
+    Spécialité : {{ mission.speciality }} <br>
+    Planque(s) : 
+    {% for hidingPlace in mission.hidingPlace %}        
+    {{ hidingPlace.code }} <br>
+    {% endfor %}
+    Agent(s) : 
+    {% for agent in mission.agent %}        
+    {{ agent.code }} <br>
+    {% endfor %}
+    Cible(s) : 
+    {% for target in mission.target %}        
+    {{ target.code }} <br>
+    {% endfor %}
+    Contact(s) : 
+    {% for contact in mission.contact %}        
+    {{ contact.code }} <br>
+    {% endfor %}
+
+    <a href="{{ path('admin_missions_update' ,{id : mission.id}) }}">modifier</a>
+    <a href="{{ path('admin_missions_delete', {id : mission.id}) }}">supprimer</a>
+</div>
+
+{% endblock %}

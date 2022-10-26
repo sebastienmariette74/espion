@@ -15,7 +15,7 @@
     Nom : {{ agent.lastname }} <br>
     Date de naissance : {{ agent.dateOfBirth |date('d-m-Y') }} <br>
     Code d'identification : {{ agent.code }} <br>
-    Nationalité : {{ agent.nationality }} <br>
+    Pays d'origine : {{ agent.country }} <br>
     Spécialités : 
     {% for speciality in agent.speciality %}
         {{ speciality.name }} -

@@ -14,7 +14,7 @@
     Nom : {{ contact.lastname }} <br>
     Date de naissance : {{ contact.dateOfBirth |date('d-m-Y') }} <br>
     Code d'identification : {{ contact.code }} <br>
-    Nationalité : {{ contact.nationality }} <br>
+    Pays d'origine : {{ contact.country }} <br>
     
     <a href="{{ path('admin_contacts_update' ,{id : contact.id}) }}">modifier</a>
     <a href="{{ path('admin_contacts_delete', {id : contact.id}) }}">supprimer</a>

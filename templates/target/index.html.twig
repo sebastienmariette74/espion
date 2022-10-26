@@ -15,7 +15,7 @@
     Nom : {{ target.lastname }} <br>
     Date de naissance : {{ target.dateOfBirth |date('d-m-Y') }} <br>
     Code d'identification : {{ target.code }} <br>
-    Nationalité : {{ target.nationality }} <br>
+    Pays d'origine : {{ target.country }} <br>
     
     <a href="{{ path('admin_targets_update' ,{id : target.id}) }}">modifier</a>
     <a href="{{ path('admin_targets_delete', {id : target.id}) }}">supprimer</a>

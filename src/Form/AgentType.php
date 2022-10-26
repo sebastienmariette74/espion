@@ -3,14 +3,12 @@
 namespace App\Form;
 
 use App\Entity\Agent;
-use App\Entity\Nationality;
+use App\Entity\Country;
 use App\Entity\Speciality;
-use App\Repository\NationalityRepository;
+use App\Repository\CountryRepository;
 use App\Repository\SpecialityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -35,16 +33,15 @@ class AgentType extends AbstractType
             ->add('code', TextType::class, [
                 'label' => 'Nom de code'
             ])
-            ->add('nationality', EntityType::class, [
-                'placeholder' => 'Quelle est la nationalité ?',
-                'class' => Nationality::class,
-                'label' => 'Nationalité',
-                'query_builder' => function (NationalityRepository $nr) {
-                    return $nr->createQueryBuilder('n')
-                        ->orderBy('n.nationality', 'ASC');
+            ->add('country', EntityType::class, [
+                'placeholder' => "Quel est le pays d'origine ?",
+                'class' => Country::class,
+                'label' => 'Pays',
+                'query_builder' => function (CountryRepository $cr) {
+                    return $cr->createQueryBuilder('c')
+                        ->orderBy('c.name', 'ASC');
                 },
-                'choice_label' => 'nationality'
-
+                'choice_label' => 'name'
             ])
             ->add('speciality', EntityType::class, [
                 'label' => 'Spécialité',

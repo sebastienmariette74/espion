@@ -3,13 +3,23 @@
 namespace App\Entity;
 
 use App\Repository\MissionRepository;
+use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Mapping\ClassMetadataInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
+
+// use Symfony\Component\Validator\Mapping\ClassMetadata;
+
 
 #[ORM\Entity(repositoryClass: MissionRepository::class)]
 class Mission
 {
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -36,15 +46,15 @@ class Mission
     #[ORM\JoinColumn(nullable: false)]
     private ?StatusMission $status = null;
 
-    #[ORM\Column]
-    private ?\DateTimeImmutable $created_at = null;
-
-    #[ORM\Column(nullable: true)]
-    private ?\DateTimeImmutable $finished_at = null;
-
     #[ORM\ManyToOne(inversedBy: 'missions')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Speciality $speciality = null;
+    
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $finish_at = null;
+
+    #[ORM\Column]
+    private ?\DateTimeImmutable $begin_at = null;
 
     #[ORM\ManyToMany(targetEntity: HidingPlace::class, inversedBy: 'missions')]
     private Collection $hidingPlace;
@@ -57,6 +67,9 @@ class Mission
 
     #[ORM\ManyToMany(targetEntity: Contact::class, inversedBy: 'missions')]
     private Collection $contact;
+
+
+
 
     public function __construct()
     {
@@ -139,30 +152,6 @@ class Mission
     public function setStatus(?StatusMission $status): self
     {
         $this->status = $status;
-
-        return $this;
-    }
-
-    public function getCreatedAt(): ?\DateTimeImmutable
-    {
-        return $this->created_at;
-    }
-
-    public function setCreatedAt(\DateTimeImmutable $created_at): self
-    {
-        $this->created_at = $created_at;
-
-        return $this;
-    }
-
-    public function getFinishedAt(): ?\DateTimeImmutable
-    {
-        return $this->finished_at;
-    }
-
-    public function setFinishedAt(?\DateTimeImmutable $finished_at): self
-    {
-        $this->finished_at = $finished_at;
 
         return $this;
     }
@@ -273,5 +262,98 @@ class Mission
         $this->contact->removeElement($contact);
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->title;
+    }
+
+
+    public function getFinishAt(): ?\DateTimeImmutable
+    {
+        return $this->finish_at;
+    }
+
+    public function setFinishAt(?\DateTimeImmutable $finish_at): self
+    {
+        $this->finish_at = $finish_at;
+
+        return $this;
+    }
+
+    public function getBeginAt(): ?\DateTimeInterface
+    {
+        return $this->begin_at;
+    }
+
+    public function setBeginAt(\DateTimeInterface $begin_at): self
+    {
+        $this->begin_at = $begin_at;
+
+        return $this;
+    }
+
+    public static function loadValidatorMetadata(ClassMetadata $metadata)
+    {
+        $metadata->addConstraint(new Assert\Callback('validate'));
+        // $metadata->addPropertyConstraint('codeName', new Assert\NotBlank([
+        //     'message' => 'Remplir'
+        // ]));
+
+    }
+
+    public function validate(ExecutionContextInterface $context, $payload)
+    {
+
+        if ($this->getSpeciality()) {
+            $agents = $this->getAgent();
+            
+            $tab = [];
+            foreach ($agents as $agent) {
+                // dd($agent);
+                $specialities = $agent->getSpeciality();
+                foreach ($specialities as $speciality) {
+                    $specialityName = $speciality->getName();
+                    $tab[] = $specialityName;
+                }
+            }
+            dump($tab);
+
+            $country = $this->getCountry()->getName();
+            
+            $speciality = $this->getSpeciality()->getName();
+            dump($tab, $speciality, $country);
+
+            if (!in_array($speciality, $tab)) {
+
+                $speciality = strtoupper($speciality);
+                $context->buildViolation('Vous devez choisir au moins 1 agent avec la spécialité ' . $speciality)
+                    ->atPath('agent')
+                    ->addViolation();
+            }           
+          
+        }
+        if ($this->getCodeName() === ""){
+            $context->buildViolation('Vous devez choisir un nom de code')
+                ->atPath('codeName')
+                ->addViolation();
+        }
+
+        if ($this->getStatus() === null){
+            $context->buildViolation('Vous devez choisir un statut')
+                ->atPath('status')
+                ->addViolation();
+        }
+        if ($this->getType() === null){
+            $context->buildViolation('Vous devez choisir un type')
+                ->atPath('type')
+                ->addViolation();
+        }
+        if ($this->getContact() === null){
+            $context->buildViolation('Vous devez choisir un contact')
+                ->atPath('contact')
+                ->addViolation();
+        }
     }
 }
