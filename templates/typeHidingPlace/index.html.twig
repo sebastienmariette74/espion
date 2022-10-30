@@ -4,16 +4,40 @@
 
 {% block body %}
 
-<h1>Types de planque</h1>
-<a href="{{ path('admin_typeHidingPlace_create') }}">ajouter un type de planque</a>
+<h1 class="mb-3">
+    Types de planque
+    {% if is_granted('ROLE_ADMIN') %}
+    <a href="{{ path('admin_typeHidingPlace_create') }}"><img src="{{ asset('build/images/plus.png') }}"
+            alt="Ajouter un type de planque" class="img-fluid"></a>
+    {% endif %}
+</h1>
 
-{% for type in typesHidingPlace %}
-<div>
-    {{ type.name }}
-    <a href="{{ path('admin_typeHidingPlace_update' ,{id : type.id}) }}">modifier</a>
-    <a href="{{ path('admin_typeHidingPlace_delete', {id : type.id}) }}">supprimer</a>
-</div>
-
-{% endfor %}
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Nom</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for type in typesHidingPlace %}
+        <tr>
+            <td>{{ type.name }}</td>
+            {% if is_granted('ROLE_ADMIN') %}
+            <td><a href="{{ path('admin_typeHidingPlace_update' ,{id : type.id}) }}">
+                    <img src="{{ asset('build/images/edit.png') }}" alt="" class="img-fluid">
+                </a>
+            </td>
+            <td>
+                <a href="{{ path('admin_typeHidingPlace_delete', {id : type.id}) }}">
+                    <img src="{{ asset('build/images/delete.png') }}" alt="" class="img-fluid">
+                </a>
+            </td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
 
 {% endblock %}

@@ -1,0 +1,71 @@
+{% set paramspeciality = app.request.get('speciality') %}
+{% set paramtype = app.request.get('type') %}
+{% set paramstatus = app.request.get('status') %}
+
+<table class="table ">
+    <thead>
+        <tr>
+            <th scope="col">Titre</th>
+            <th scope="col">Spécialité <br>
+                <select id="filter-speciality" name="filter-speciality" class="filter" aria-label="Default select example">
+                    <option value="" {{ paramtype is empty ? "selected" : "" }}></option>
+                    {% for speciality in specialities %}
+                    <option value="{{ speciality.id }}" {{ speciality.id | trans is same as paramspeciality | trans ? "selected" : "" }}>{{ speciality.name }}</option>
+                    {% endfor %}
+                  </select>
+            </th>
+            <th scope="col">Type <br>
+                <select id="filter-type" name="filter-type" class="filter" aria-label="Default select example">
+                    <option value="" {{ paramspeciality is empty ? "selected" : "" }}></option>
+                    {% for type in types %}
+                    <option value="{{ type.id }}" {{ type.id | trans is same as paramtype | trans ? "selected" : "" }}>{{ type.name }}</option>
+                    {% endfor %}
+                  </select>
+            </th>
+            <th scope="col">Statut <br>
+                <select id="filter-status" name="filter-status" class="filter" aria-label="Default select example">
+                    <option value="" {{ paramstatus is empty ? "selected" : "" }}></option>
+                    {% for status in allStatus %}
+                    <option value="{{ status.id }}" {{ status.id | trans is same as paramstatus | trans ? "selected" : "" }}>{{ status.name | raw}}</option>
+                    {% endfor %}
+                  </select>
+            </th>
+            {% if is_granted('ROLE_ADMIN') %}
+            <th scope="col"></th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            {% endif %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for mission in missions %}
+        <tr>
+            <td>{{ mission.codeName }} </td>
+            <td>{{ mission.speciality }} </td>
+            <td>{{ mission.type }} </td>
+            <td>{{ mission.status }} </td>
+            <td>
+                <a href="{{ path('admin_missions_details' ,{id : mission.id}) }}">
+                <img src="{{ asset('build/images/details.png') }}" alt="" class="img-fluid">
+                </a>
+            </td>
+
+
+            {% if is_granted('ROLE_ADMIN') %}
+            <td>
+                <a href="{{ path('admin_missions_update' ,{id : mission.id}) }}">
+                <img src="{{ asset('build/images/edit.png') }}" alt="" class="img-fluid">
+                </a>
+            </td>
+            <td>
+                <a href="{{ path('admin_missions_delete', {id : mission.id}) }}">
+                <img src="{{ asset('build/images/delete.png') }}" alt="" class="img-fluid">
+                </a>
+            </td>  
+            {% endif %}          
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% include "_layouts/_pagination.html.twig" %}
+

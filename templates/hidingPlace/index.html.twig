@@ -11,15 +11,16 @@
 {# {{ dump(hidingPlace) }} #}
 
 <div>
+    {# {% include "hidingPlace/_content.html.twig" %} #}
     Code : {{ hidingPlace.code }} <br>
     Adresse : {{ hidingPlace.address }} <br>
     Code Postal : {{ hidingPlace.zipcode }} <br>
     City : {{ hidingPlace.city }} <br>
     Pays : {{ hidingPlace.country.name }} <br>
     Type : {{ hidingPlace.type.name }}
-    {# Missions : 
+    {# Missions :
     {% for mission in hidingPlace.missions %}
-        {{ mission.title }} -
+    {{ mission.title }} -
     {% endfor %} #}
 
     <a href="{{ path('admin_hidingPlaces_update' ,{id : hidingPlace.id}) }}">modifier</a>

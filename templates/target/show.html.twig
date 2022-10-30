@@ -1,0 +1,30 @@
+<table class="table-details">    
+    <tbody>
+      <tr>
+        <th scope="row">Prénom</th>
+        <td>{{ target.firstname }}</td>
+      </tr>
+      <tr>
+        <th scope="row">Nom</th>
+        <td>{{ target.lastname }}</td>
+      </tr>
+      <tr>
+        <th scope="row">Date de naissance</th>
+        <td >{{ target.dateOfBirth |date('d-m-Y') }}</td>
+      </tr>
+      <tr>
+        <th scope="row">Code d'identification</th>
+        <td >{{ target.code }}</td>
+      </tr>
+      <tr>
+        <th scope="row">Pays d'origine</th>
+        <td >{{ target.country }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+{# Prénom : {{ target.firstname }} <br>
+Nom : {{ target.lastname }} <br>
+Date de naissance : {{ target.dateOfBirth |date('d-m-Y') }} <br>
+Code d'identification : {{ target.code }} <br>
+Pays d'origine : {{ target.country }} <br> #}

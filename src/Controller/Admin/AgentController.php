@@ -26,6 +26,20 @@ class AgentController extends AbstractController
         return $this->render('agent/index.html.twig', compact('agents', 'specialities'));
     }
 
+    #[Route('/agent/{code}', name: '_show')]
+    public function show(Agent $agent): Response
+    {              
+
+        return $this->render('agent/show.html.twig', compact('agent'));
+    }
+
+    #[Route('/agent/details/{id}', name: '_details')]
+    public function details(Agent $agent): Response
+    {              
+
+        return $this->render('agent/details.html.twig', compact('agent'));
+    }
+
     #[Route('/creation-agent', name: '_create')]
     public function createAgent(EntityManagerInterface $em, Request $request): Response
     {

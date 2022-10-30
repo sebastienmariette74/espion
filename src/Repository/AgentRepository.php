@@ -67,6 +67,17 @@ class AgentRepository extends ServiceEntityRepository
        ;
    }
 
+//    public function findAllBySpeciality($speciality): array
+//    {
+//        return $this->createQueryBuilder('a')
+//        ->innerJoin('a.speciality', 's')
+//        ->where('s.name = :speciality')
+//             ->setParameter('speciality', $speciality)
+//            ->getQuery()
+//            ->getResult()
+//        ;
+//    }
+
 //    public function findOneBySomeField($value): ?Agent
 //    {
 //        return $this->createQueryBuilder('a')
