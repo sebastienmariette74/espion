@@ -4,23 +4,57 @@
 
 {% block body %}
 
-<h1>Les cibles</h1>
-<a href="{{ path('admin_targets_create') }}">ajouter une target</a>
+<h1 class="mb-3">Les cibles
+    {% if is_granted('ROLE_ADMIN') %}
+<a  href="{{ path('admin_targets_create') }}" ><img src="{{ asset('build/images/plus.png') }}" alt="Ajouter une cible" class="img-fluid"></a>
+{% endif %}
+</h1>
 
-{% for target in targets %}
-{# {{ dump(target) }} #}
-
-<div>
-    Prénom : {{ target.firstname }} <br>
-    Nom : {{ target.lastname }} <br>
-    Date de naissance : {{ target.dateOfBirth |date('d-m-Y') }} <br>
-    Code d'identification : {{ target.code }} <br>
-    Pays d'origine : {{ target.country }} <br>
-    
-    <a href="{{ path('admin_targets_update' ,{id : target.id}) }}">modifier</a>
-    <a href="{{ path('admin_targets_delete', {id : target.id}) }}">supprimer</a>
-</div>
-
-{% endfor %}
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Code</th>
+            <th scope="col">Pays <br>
+                {# <select id="filter-type" name="filter-type" class="filter" aria-label="Default select example">
+                    <option value="" {{ paramspeciality is empty ? "selected" : "" }}></option>
+                    {% for type in types %}
+                    <option value="{{ type.id }}" {{ type.id | trans is same as paramtype | trans ? "selected" : "" }}>
+                        {{ type.name }}</option>
+                    {% endfor %}
+                </select> #}
+            </th>
+            {% if is_granted('ROLE_ADMIN') %}
+            <th scope="col"></th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            {% endif %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for target in targets %}
+        <tr>
+            <td>{{ target.code }} </td>
+            <td>{{ target.country }} </td>
+            <td>
+                <a href="{{ path('admin_targets_details' ,{id : target.id}) }}">
+                    <img src="{{ asset('build/images/details.png') }}" alt="" class="img-fluid">
+                </a>
+            </td>
+            {% if is_granted('ROLE_ADMIN') %}
+            <td>
+                <a href="{{ path('admin_targets_update' ,{id : target.id}) }}">
+                    <img src="{{ asset('build/images/edit.png') }}" alt="" class="img-fluid">
+                </a>
+            </td>
+            <td>
+                <a href="{{ path('admin_targets_delete', {id : target.id}) }}">
+                    <img src="{{ asset('build/images/delete.png') }}" alt="" class="img-fluid">
+                </a>
+            </td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
 
 {% endblock %}

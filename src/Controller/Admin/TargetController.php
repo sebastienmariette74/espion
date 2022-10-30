@@ -30,6 +30,12 @@ class TargetController extends AbstractController
         return $this->render('target/show.html.twig', compact('target'));
     }
 
+    #[Route('/target/details/{id}', name: '_details')]
+    public function details(Target $target): Response
+    {
+        return $this->render('target/details.html.twig', compact('target'));
+    }
+
     #[Route('/creation-target', name: '_create')]
     public function createTarget(EntityManagerInterface $em, Request $request): Response
     {

@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Cible : {{target.code}}{% endblock %}
+
+{% block body %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ path('admin_targets') }}">Cibles</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{ target.code }}</li>
+    </ol>
+</nav>
+
+<h1 class="mb-3">Cible : {{ target.code }}</h1>
+{# {% if is_granted('ROLE_ADMIN') %}
+<a href="{{ path('admin_targets_create') }}">ajouter une target</a>
+{% endif %} #}
+{#
+<pre>
+    {{ dump(target.target) }}
+</pre> #}
+<div>
+    <table class="table">
+        <tbody>
+            <tr>
+                <th scope="row">Code d'identification</th>
+                <td>{{ target.code }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Prénom</th>
+                <td>{{ target.firstname }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Nom</th>
+                <td>{{ target.lastname }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Date de naissance</th>
+                <td>{{ target.dateOfBirth |date('d-m-Y') }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Pays d'origine</th>
+                <td>{{ target.country }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>
+
+{% endblock %}
