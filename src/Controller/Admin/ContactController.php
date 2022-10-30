@@ -23,6 +23,13 @@ class ContactController extends AbstractController
         return $this->render('contact/index.html.twig', compact('contacts'));
     }
 
+    #[Route('/contact/details/{id}', name: '_details')]
+    public function details(Contact $contact): Response
+    {
+
+        return $this->render('contact/details.html.twig', compact('contact'));
+    }
+
     #[Route('/creation-contact', name: '_create')]
     public function createContact(EntityManagerInterface $em, Request $request): Response
     {
