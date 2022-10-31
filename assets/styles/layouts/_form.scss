@@ -1,7 +1,21 @@
 form {
-    max-width: 600px;
+    width: auto;
+    max-width: 900px;
     margin: 0 auto;
     img {
         width: 20px;
     }
+
+    .agent {
+        overflow: auto;
+    }
+}
+
+#mission_hidingPlace option {
+    text-decoration: underline;
+}
+
+#mission_hidingPlace option {    
+    text-decoration: underline;
+    color : #0D6EFD;
 }

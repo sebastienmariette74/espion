@@ -10,6 +10,11 @@ import './styles/app.scss';
 
 // start the Stimulus application
 import './bootstrap';
+import { Tooltip, Toast, Popover } from 'bootstrap';
+document.querySelectorAll('[data-bs-toggle="popover"]')
+  .forEach(popover => {
+    new Popover(popover)
+  })
 import './js/layouts/_form';
 import './js/layouts/_main';
 import './js/layouts/_navbar';
@@ -18,7 +23,6 @@ import './js/layouts/_pagination';
 import './js/layouts/_modal';
 import './js/layouts/_table';
 
-import { Tooltip, Toast, Popover } from 'bootstrap';
 const $ = require('jquery');
 
 

@@ -44,7 +44,9 @@ class MissionType extends AbstractType
             ])
             ->add('description', CKEditorType::class, [
                 'config_name' => 'my_config',
-                'label' => 'Description'
+                'label' => 'Description',
+                'constraints' => new NotBlank(['message' => 'Veuillez entrer une description.']),
+
             ])
             ->add('codeName', TextType::class, [
                 'label' => 'Code',
@@ -121,16 +123,6 @@ class MissionType extends AbstractType
                     return $hidingPlace->getCode() . ' (' . $hidingPlace->getCountry() . ')';
                 },
             ])
-            // ->add('agentSpeciality', EntityType::class, [
-            //     'placeholder' => 'Spécialité',
-            //     'class' => Speciality::class,
-            //     'mapped' => false,
-            //     'query_builder' => function (SpecialityRepository $sr) {
-            //         return $sr->createQueryBuilder('s')
-            //             ->orderBy('s.name', 'ASC');
-            //     },
-            //     'choice_label' => 'name'
-            // ])
             ->add('agent', EntityType::class, [
                 'placeholder' => 'Agent(s)',
                 'class' => Agent::class,
@@ -185,81 +177,21 @@ class MissionType extends AbstractType
                 },
             ]);
 
-        // $formModifier = function (FormInterface $form, $data) {
-        //     // $data = $event->getForm()->getData();
-        //     // $form = $event->getForm()->getParent();
-
-        //     // $formModifier($event->getForm()->getParent(), $country);
-        //     $hidingPlaces = null === $data ? [] : $data->getHidingPlaces();
-        //     // dump($data, $hidingPlaces);
-        //     // $countries = null === $target ? [] : $target->getCountry();
-        //     // dd($contacts);
-
-        //     $form->add('hidingPlace', EntityType::class, [
-        //         'class' => HidingPlace::class,
-        //         'label' => 'Planque(s)',
-
-        //         'multiple' => true,
-        //         "required" => false,
-        //         'choices' => $hidingPlaces,
-        //         // 'mapped' => false,
-        //         'choice_label' => function (HidingPlace $hidingPlace) {
-        //             return $hidingPlace->getCode() . ' (' . $hidingPlace->getCountry() . ')';
-        //         },
-        //     ]);
-        // };
-
-        // $builder->addEventListener(
-        //     FormEvents::PRE_SET_DATA,
-        //     function (FormEvent $event) use ($formModifier) {
-        //         $data = $event->getData();
-        //         dump($data);
-
-        //         $formModifier($event->getForm(), $data->getCountry());
-        //     }
-        // );
-
-        // $builder->get('country')->addEventListener(
-        //     FormEvents::POST_SET_DATA,
-        //     function (FormEvent $event) use ($formModifier) {
-        //         $data = $event->getForm()->getData();
-        //         dump($data);
-
-        //         $formModifier($event->getForm()->getParent(), $data);
-        //     }
-        // );
 
         $builder->addEventListener(
             FormEvents::PRE_SET_DATA,
             function (FormEvent $event) {
-                // this would be your entity, i.e. SportMeetup
                 $form = $event->getForm();
                 $data = $event->getData();
-                // dump($data);
-                $hidingPlaces = $data->getHidingPlace();
                 $contacts = $data->getContact();
-                $agents = $data->getAgent();
 
-                $form
-                    // ->add('hidingPlace', EntityType::class, [
-                    //     'class' => HidingPlace::class,
-                    //     'label' => 'Planque(s)',
-                    //     'multiple' => true,
-                    //     "required" => false,
-                    //     'choices' => $hidingPlaces,
-                    //     // 'mapped' => false,
-                        // 'choice_label' => function (HidingPlace $hidingPlace) {
-                        //     return $hidingPlace->getCode() . ' (' . $hidingPlace->getCountry() . ')';
-                        // },
-                    // ])
-                    ->add('contact', EntityType::class, [
+                $form->add('contact', EntityType::class, [
                         'placeholder' => 'Contact(s)',
                         'class' => Contact::class,
                         'label' => 'Contact(s)',
                         'multiple' => true,
                         "required" => true,
                         'choices' => $contacts,
-                        // 'mapped' => false,
                         'query_builder' => function (ContactRepository $cr) {
                             return $cr->createQueryBuilder('c')
                                 ->orderBy('c.code', 'ASC');
@@ -268,27 +200,6 @@ class MissionType extends AbstractType
                             return $contact->getCode() . ' (' . $contact->getCountry() . ')';
                         }
                     ])
-                    // ->add('agent', EntityType::class, [
-                    //     'placeholder' => 'Agents(s)',
-                    //     'class' => Agent::class,
-                    //     'label' => 'Agents(s)',    
-                    //     'multiple' => true,
-                    //     "required" => false,
-                    //     'choices' => $agents,
-                    //     'query_builder' => function (AgentRepository $ar,) {
-                    //         return $ar->createQueryBuilder('a')
-                    //             ->orderBy('a.code', 'ASC');
-                    //     },
-                    //     'choice_label' => function (Agent $agent) {
-                    //         $specialities = $agent->getSpeciality();
-                    //         $tab = [];
-                    //         foreach ($specialities as $speciality) {
-                    //             $tab[] = $speciality->getName();
-                    //         }
-                    //         $string = implode(' - ', $tab);
-                    //         return $agent->getCode() . ' => ' . $string . ' (' . $agent->getCountry() . ')';
-                    //     },
-                    // ])
                 ;
             }
         );       
@@ -296,42 +207,10 @@ class MissionType extends AbstractType
         $builder->get('country')->addEventListener(
             FormEvents::POST_SUBMIT,
             function (FormEvent $event) {
-                // function (FormEvent $event) use ($formModifier) {
                 $data = $event->getForm()->getData();
                 $form = $event->getForm()->getParent();
-                $title = $form->getData()->getTitle();
-                $description = $form->getData()->getDescription();
-                $codeName = $form->getData()->getCodeName();
-                $status = $form->getData()->getStatus();
-                $speciality = $form->getData()->getSpeciality();
-                // $formModifier($event->getForm()->getParent(), $country);
                 $hidingPlaces = null === $data ? [] : $data->getHidingPlaces();
-                foreach ($hidingPlaces as $hidingPlace) {
-                    // dump($hidingPlace);
-                }
                 $contacts = null === $data ? [] : $data->getContacts();
-                // dump($data, $status, $hidingPlaces, $contacts);
-                // $countries = null === $target ? [] : $target->getCountry();
-                // dd($contacts);
-
-                if ($title != null) {
-                    $form->add('title', TextType::class, [
-                        'data' => $title
-                    ]);
-                }
-
-                if ($description != null) {
-                    $form->add('description', TextType::class, [
-                        'data' => $description
-                    ]);
-                }
-
-                if ($codeName != null) {
-                    $form->add('codeName', TextType::class, [
-                        'data' => $codeName
-                    ]);
-                }
-
                 $form->add('type', EntityType::class, [
                     'placeholder' => 'Type',
                     'class' => TypeMission::class,
@@ -344,42 +223,12 @@ class MissionType extends AbstractType
                     'choice_label' => 'name'
                 ]);
 
-                if ($status != null) {
-                    $form->add('status', EntityType::class, [
-                        'placeholder' => 'Statut',
-                        'class' => StatusMission::class,
-                        'label' => 'Statut',
-                        'data' => $status,
-                        'query_builder' => function (StatusMissionRepository $sr) {
-                            return $sr->createQueryBuilder('s')
-                                ->orderBy('s.name', 'ASC');
-                        },
-                        'choice_label' => 'name'
-                    ]);
-                }
-
-                if ($speciality != null) {
-                    $form->add('speciality', EntityType::class, [
-                        'placeholder' => 'Spécialité',
-                        'class' => Speciality::class,
-                        'label' => 'Spécialité',
-                        'required' => true,
-                        'data' => $speciality,
-                        'query_builder' => function (SpecialityRepository $sr) {
-                            return $sr->createQueryBuilder('s')
-                                ->orderBy('s.name', 'ASC');
-                        },
-                        'choice_label' => 'name'
-                    ]);
-                }
-
                 $form->add('hidingPlace', EntityType::class, [
                     'class' => HidingPlace::class,
                     'label' => 'Planque(s)',
                     'multiple' => true,
                     "required" => false,
                     'choices' => $hidingPlaces,
-                    // 'mapped' => false,
                     'choice_label' => function (HidingPlace $hidingPlace) {
                         return $hidingPlace->getCode();
                         // return $hidingPlace->getCode() . ' (' . $hidingPlace->getCountry() . ')';
@@ -389,11 +238,9 @@ class MissionType extends AbstractType
                         'placeholder' => 'Contact(s)',
                         'class' => Contact::class,
                         'label' => 'Contact(s)',
-
                         'multiple' => true,
                         "required" => true,
                         'choices' => $contacts,
-                        // 'mapped' => false,
                         'query_builder' => function (ContactRepository $cr) {
                             return $cr->createQueryBuilder('c')
                                 ->orderBy('c.code', 'ASC');
@@ -416,20 +263,13 @@ class MissionType extends AbstractType
                     $countries[] = $x->getCountry()->getName();
                 }
                 $agents = $data === null ? [] : $this->agentRepo->findAllByCountries($countries);
-                $form
-                ->add('description', CKEditorType::class, [
-                    'config_name' => 'my_config',
-                    'label' => 'Description'
-                ])
-                ->add('agent', EntityType::class, [
+
+                $form->add('agent', EntityType::class, [
                     'placeholder' => 'Agents(s)',
                     'class' => Agent::class,
                     'label' => 'Agents(s)',
                     'multiple' => true,
-                    "required" => false,
                     'choices' => $agents,
-                    // 'choices' => $agents === null ? $agents : $agentsSpeciality,
-                    // 'mapped' => false,
                     'query_builder' => function (AgentRepository $ar,) {
                         return $ar->createQueryBuilder('a')
                             ->orderBy('a.code', 'ASC');
@@ -446,46 +286,6 @@ class MissionType extends AbstractType
                 ]);
             }
         );
-
-        // $builder->get('agentSpeciality')->addEventListener(
-        //     FormEvents::POST_SUBMIT,
-        //     function (FormEvent $event) {
-        //         $form = $event->getForm()->getParent();
-        //         $data = $event->getForm()->getData();
-        //         $speciality = $data === null ? '' : $data->getName();
-        //         $country = $form->getData()->getCountry();
-
-        //         $agents = $data === null ? [] : $this->agentRepo->findAllBySpeciality($speciality);
-        //         dump($country, $data, $agents);
-                
-        //         $form->add('agent', EntityType::class, [
-        //             'placeholder' => 'Agents(s)',
-        //             'class' => Agent::class,
-        //             'label' => 'Agents(s)',
-        //             'multiple' => true,
-        //             "required" => false,
-        //             'choices' => $agents,
-        //             // 'choices' => $agents === null ? $agents : $agentsSpeciality,
-        //             // 'mapped' => false,
-        //             'query_builder' => function (AgentRepository $ar,) {
-        //                 return $ar->createQueryBuilder('a')
-        //                     ->orderBy('a.code', 'ASC');
-        //             },
-        //             'choice_label' => function (Agent $agent) {
-        //                 $specialities = $agent->getSpeciality();
-        //                 $tab = [];
-        //                 foreach ($specialities as $speciality) {
-        //                     $tab[] = $speciality->getName();
-        //                 }
-        //                 $string = implode(' - ', $tab);
-        //                 return $agent->getCode() . ' => ' . $string . ' (' . $agent->getCountry() . ')';
-        //             },
-        //         ]);
-
-        //     }
-        // );
-
-
     }
 
     public function configureOptions(OptionsResolver $resolver): void

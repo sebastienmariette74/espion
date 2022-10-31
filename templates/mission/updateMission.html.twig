@@ -4,53 +4,37 @@
 
 {% block body %}
 
-<h1>Modifier la mission</h1>
+<h1 class="mb-3">Modifier la mission</h1>
 {{ form_start(form) }}
+<div class="row">
+    <div class="col-sm-12 col-md-3">
+        <div class="row">
+            <div class="col-sm-6 col-md-12">{{ form_row(form.codeName) }}</div>
+            <div class="col-sm-6 col-md-12">{{ form_row(form.title) }}</div>
+            <div class="col-sm-6 col-md-12">{{ form_row(form.begin_at) }}</div>
+            <div class="col-sm-6 col-md-12">{{ form_row(form.finish_at) }}</div>
+            <div class="col-sm-6 col-md-12 mb-3">{{ form_widget(form.country) }}</div>
+            <div class="col-sm-6 col-md-12 mb-3">{{ form_widget(form.speciality) }}{{ form_help(form.speciality) }}</div>
+            <div class="col-sm-6 col-md-12 mb-3">{{ form_widget(form.type) }}</div>
+            <div class="col-sm-6 col-md-12 ">{{ form_widget(form.status) }}</div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-9">
+        <div class="row">
+            <div class="col-12">{{ form_label(form.description) }}{{ form_widget(form.description) }}</div>
+            <div class="col-sm-6">{{ form_row(form.target) }}</div>
+            <div class="col-sm-6 hidingPlace">{{ form_row(form.hidingPlace) }}</div>
+            <div class="col-sm-6 agent">{{ form_row(form.agent) }}</div>
+            <div class="col-sm-6 contact">{{ form_row(form.contact) }}</div>
+        </div>
+    </div>
 
-<div class="row">
-    <div class="col-md-6">
-        {{ form_row(form.codeName) }}
-    </div>
-    <div class="col-md-6">
-        {{ form_row(form.title) }}
-    </div>
-    <div class="col-12">{{ form_row(form.description) }}</div>
-</div>
-<div class="row">
-    <div class="col-6 col-md-4">{{ form_row(form.country) }}</div>
-    <div class="col-6 col-md-4">{{ form_row(form.begin_at) }}</div>
-    <div class="col-6 col-md-4">{{ form_row(form.finish_at) }}</div>
-</div>
-<div class="row">
-    <div class="col-md-6 ">{{ form_row(form.speciality) }}</div>
-    <div class="col-6 ">{{ form_row(form.type) }}</div>
-    <div class="col-6 ">{{ form_row(form.status) }}</div>
-</div>
-<div class="row">
-    <div class="col-6 ">
-        {{ form_label(form.target) }}
-        {# <a href="" class="open-modal">
-            <img src="{{ asset('build/images/plus.png') }}" alt="" class="img-fluid">
-        </a> #}
-        {{ form_widget(form.target) }}
-    </div>
-    <div class="col-6">
-        {{ form_row(form.hidingPlace) }}
+    <div class="my-3 d-flex justify-content-end">
+        <button type="submit" class="btn btn-sm btn-warning me-3">MODIFIER</button>
+        <a href="{{ path('admin_missions')}}" class="btn btn-sm btn-danger">ANNULER</a>
     </div>
 </div>
-<div class="row">
-        <div class="col">{{ form_label(form.agent) }}</div>
-        {# <div class="col-3">{{ form_widget(form.agentSpeciality) }}</div> #}
-    <div class="col-12">{{ form_widget(form.agent) }}
-    <div class="col-12">{{ form_errors(form.agent) }}
-    </div>
-    <div class="col-12 contact">{{ form_row(form.contact) }}
-    </div>
-</div>
-<div class="my-3">
-    <button type="submit" class="btn btn-sm btn-warning">MODIFIER</button>
-    <a href="{{ path('admin_missions')}}" class="btn btn-sm btn-danger">ANNULER</a>
-</div>
-{{ form_end(form) }}
 
-{% endblock %}
+    {{ form_end(form) }}
+
+    {% endblock %}

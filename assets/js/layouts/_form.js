@@ -1,18 +1,36 @@
 const $ = require("jquery");
 
+let errors = $('.invalid-feedback');
+errors.each(function(index){
+  if(index != 0){
+    $(this).css('visibility', 'hidden');
+  }
+  // $(this).css('color', 'green');
+  // console.log($(this));
+})
+
 let title = $("#mission_title");
+let target = $("#mission_target");
+let agent = $("#mission_agent option");
+
+let noTarget = $("#mission_target option:selected").text();
+if (noTarget === "") {
+  agent.css("display", "none");
+}
+console.log(noTarget);
 
 let country = $("#mission_country");
+let noCountry = $("#mission_country option:selected").text();
 let date = $("#mission_begin_at");
-let hidingPlace = $(".hidingPlace");
-let contact = $(".contact");
-if (country.text() === "Pays") {
+let hidingPlace = $(".hidingPlace option");
+let contact = $(".contact option");
+if (noCountry === "Pays") {
   hidingPlace.css("display", "none");
   contact.css("display", "none");
 }
 
 country.on("change", function () {
-  if ($(this).val() != "Pays") {
+  if ($(this).text() != "Pays") {
     hidingPlace.css("display", "block");
     contact.css("display", "block");
   }
@@ -44,7 +62,6 @@ country.on("change", function () {
   });
 });
 
-let target = $("#mission_target");
 let date2 = $("#mission_begin_at");
 
 target.on("change", function () {
@@ -89,15 +106,16 @@ target.on("change", function () {
 // });
 
 $(".form-create").on("mouseover", "#mission_hidingPlace option", function () {
-  console.log($(".details").length);
   // $('.modal').css('display', 'block');
   // $("<div class='details'></div>").prependTo($(".hidingPlace"));
   // $(this).closest().append("<div class='modal'></div>");
-  let slug = $(this).text();
-  console.log($(this).text());
+  let code = $(this).text();
+  if (code.indexOf('(') != -1) {
+    code = code.split('(')[0];
+  }  
   let url = new URL(window.location);
   axios
-    .get(url.origin + "/admin/hidingPlaces/hidingPlace/" + slug)
+    .get(url.origin + "/admin/hidingPlaces/hidingPlace/" + code)
     .then((response) => {
       if ($(".details").length < 1) {
         $("<div class='details'></div>").prependTo($(".hidingPlace"));
@@ -107,9 +125,7 @@ $(".form-create").on("mouseover", "#mission_hidingPlace option", function () {
         // $(`.${element}`).html(response.data);
         // }
         let heightDetails = $(".details").height();
-        console.log(heightDetails);
         let top = "-" + heightDetails + "px";
-        console.log(top);
         $(`.details`).css("top", top);
       }
       // $(`.details`).html(response.data);
@@ -126,6 +142,10 @@ $(".form-create").on("mouseover", "#mission_hidingPlace option", function () {
 
 $('.form-create').on('mouseout', '#mission_hidingPlace option', function(){
   $('.details').remove();
+});
+
+$('.form-create').on('mouseout', '.details', function(){    
+  $('.details' ).remove();
 });
 
 /* _________________ selection des agents par filtre __________________*/
