@@ -4,10 +4,9 @@
 
 {% block body %}
 
-<h1 class="mb-3">Les agents
-    {% if is_granted('ROLE_ADMIN') %}
-<a  href="{{ path('admin_agents_create') }}" ><img src="{{ asset('build/images/plus.png') }}" alt="Ajouter un agent" class="img-fluid"></a>
-{% endif %}
+<h1 class="mb-3">
+    Les agents
+    <a  href="{{ path('admin_agents_create') }}" ><img src="{{ asset('build/images/plus.png') }}" alt="Ajouter un agent" class="img-fluid"></a>
 </h1>
 
 <table class="table">
@@ -59,7 +58,6 @@
                     <img src="{{ asset('build/images/details.png') }}" alt="" class="img-fluid">
                 </a>
             </td>
-            {% if is_granted('ROLE_ADMIN') %}
             <td>
                 <a href="{{ path('admin_agents_update' ,{id : agent.id}) }}">
                     <img src="{{ asset('build/images/edit.png') }}" alt="" class="img-fluid">
@@ -70,7 +68,6 @@
                     <img src="{{ asset('build/images/delete.png') }}" alt="" class="img-fluid">
                 </a>
             </td>
-            {% endif %}
         </tr>
         {% endfor %}
     </tbody>

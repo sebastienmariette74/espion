@@ -1,13 +1,39 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Société d'Espionnage{% endblock %}
+{% block title %}Les administrateurs{% endblock %}
 
 {% block body %}
-{# {% include "_layouts/_navbar.html.twig" %} #}
+<h1 class="mb-3">Les administrateurs
+    <a href="{{ path('admin_admins_create') }}"><img src="{{ asset('build/images/plus.png') }}"
+            alt="Ajouter un administrateur" class="img-fluid"></a>
 
+</h1>
 
-<h1>accueil</h1>
-
-
+<table class="table">
+    <thead>
+        <tr>
+            <th>Email</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody class="table-group-divider">
+        {% for user in users %}
+        <tr>
+            <td>{{ user.email }}</td>
+            <td>
+                <a href="{{ path('admin_admins_show' ,{id : user.id}) }}">
+                    <img src="{{ asset('build/images/details.png') }}" alt="" class="img-fluid">
+                </a>
+                <a href="{{ path('admin_admins_edit' ,{id : user.id}) }}">
+                    <img src="{{ asset('build/images/edit.png') }}" alt="" class="img-fluid mx-3">
+                </a>
+                <a href="{{ path('admin_admins_delete', {id : user.id , 'methods' : 'POST'}) }}">
+                    <img src="{{ asset('build/images/delete.png') }}" alt="" class="img-fluid">
+                </a>           
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
 
 {% endblock %}

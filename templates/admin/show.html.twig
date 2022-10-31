@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Administrateur : {{ user.firstname }} {{ user.lastName }}{% endblock %}
+
+{% block body %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ path('admin_admins') }}">Administrateurs</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{ user.firstname }} {{ user.lastName }}</li>
+    </ol>
+</nav>
+
+<h1 class="mb-3">
+    Administrateur <br>
+    {{ user.firstname }} {{ user.lastName }}
+</h1>
+<table class="table">
+    <tbody>
+        <tr>
+            <th>Email</th>
+            <td>{{ user.email }}</td>
+        </tr>
+        <tr>
+            <th>Roles</th>
+            <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
+        </tr>
+        <tr>
+            <th>Prénom</th>
+            <td>{{ user.firstname }}</td>
+        </tr>
+        <tr>
+            <th>Nom</th>
+            <td>{{ user.lastName }}</td>
+        </tr>
+        <tr>
+            <th>Date de création</th>
+            <td>{{ user.createdAt ? user.createdAt|date('d-m-Y ') : '' }}</td>
+        </tr>
+    </tbody>
+</table>
+
+{% endblock %}
