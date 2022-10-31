@@ -20,15 +20,15 @@
         {% for user in users %}
         <tr>
             <td>{{ user.email }}</td>
-            <td>
+            <td >
                 <a href="{{ path('admin_admins_show' ,{id : user.id}) }}">
-                    <img src="{{ asset('build/images/details.png') }}" alt="" class="img-fluid">
+                    <img src="{{ asset('build/images/details.png') }}" alt="détails" class="img-fluid">
                 </a>
                 <a href="{{ path('admin_admins_edit' ,{id : user.id}) }}">
-                    <img src="{{ asset('build/images/edit.png') }}" alt="" class="img-fluid mx-3">
+                    <img src="{{ asset('build/images/edit.png') }}" alt="modifier" class="img-fluid mx-3">
                 </a>
                 <a href="{{ path('admin_admins_delete', {id : user.id , 'methods' : 'POST'}) }}">
-                    <img src="{{ asset('build/images/delete.png') }}" alt="" class="img-fluid">
+                    <img src="{{ asset('build/images/delete.png') }}" alt="supprimer" class="img-fluid">
                 </a>           
             </td>
         </tr>

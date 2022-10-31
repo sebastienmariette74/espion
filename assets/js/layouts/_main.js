@@ -1,6 +1,6 @@
-const { css } = require("jquery");
 const $ = require("jquery");
 
+/*_______________ style arrow ________________________*/
 let arrowToggle = false;
 $(".mainArrow").on("click", function () {
   console.log('ok');
@@ -21,8 +21,16 @@ $(".mainArrow").on("click", function () {
   }
 });
 
-$("[href]").each(function () {
-  if (this.href == window.location.href) {
+/*_______________ style links ________________________*/
+
+let pathname = new URL(window.location.href).pathname;
+
+$(".main-link").each(function(){
+  if (
+    $(this).attr('href') == pathname ||
+    $(this).attr('href').split("/")[2] == pathname.split("/")[2]
+  ) {
     $(this).addClass("active");
   }
-});
+})
+

@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/admin/admins', name: 'admin_admins')]
+#[Route('/admin/administrateurs', name: 'admin_admins')]
 class AdminController extends AbstractController
 {
     #[Route('/', name: '', methods: ['GET'])]
@@ -26,7 +26,7 @@ class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('/create', name: '_create', methods: ['GET', 'POST'])]
+    #[Route('/création', name: '_create', methods: ['GET', 'POST'])]
     public function create(Request $request, UserRepository $userRepository, UserPasswordHasherInterface $userPasswordHasher): Response
     {
         $user = new User();
@@ -57,7 +57,7 @@ class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: '_edit', methods: ['GET', 'POST'])]
+    #[Route('/{id}/modification', name: '_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, User $user, UserRepository $userRepository, UserPasswordHasherInterface $userPasswordHasher): Response
     {
         $form = $this->createForm(AdminType::class, $user);
