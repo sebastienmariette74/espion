@@ -3,9 +3,9 @@ console.log($('.details').length);
 
 // console.log('table');
 
-$('.table-mission li').css('cursor', 'pointer');
+$('.table-show li').css('cursor', 'pointer');
 
-$('.table-mission').on('mouseover', 'li', function(event){
+$('.table-show').on('mouseover', 'li', function(event){
         console.log($('.details').length);
         let code = $(this).text();
         firstUrl = $(this).data('firsturl')
@@ -37,10 +37,10 @@ $('.table-mission').on('mouseover', 'li', function(event){
     
 });
 
-$('.table-mission').on('mouseout', 'li', function(){    
+$('.table-show').on('mouseout', 'li', function(){    
       $('.details' ).remove();
 });
-$('.table-mission').on('mouseout', '.details', function(){    
+$('.table-show').on('mouseout', '.details', function(){    
       $('.details' ).remove();
 });
 

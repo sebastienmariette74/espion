@@ -4,7 +4,7 @@
 
 {% set pages = ((total / limit)|round(0, 'ceil')) %}
 
-<ul class="pagination d-flex justify-content-center">
+<ul class="pagination d-flex justify-content-center mt-3">
     <li class="page-item {{ (page == 1) ? 'disabled' : '' }}">
         <a class="page-link" href="{{ (page > 1) ? '?page=' ~ (page - 1) ~ '&' ~ queryString : '' }}"
            aria-label="Previous" tabindex="-1">

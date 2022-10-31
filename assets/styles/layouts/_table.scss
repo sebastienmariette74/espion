@@ -31,6 +31,12 @@
     }
 }
 
+.table-mission {
+    width: 800px;
+}
+
+
+
 .table-details {
    
     tr:nth-child(odd){
@@ -47,6 +53,24 @@
     //     background: grey;
     // }
 }
+// .none {
+//     display: none;
+// }
+.table-show {
+    li{
+        text-decoration: underline;
+        color : #0D6EFD;
+    }
+    li:hover{
+        color : #2d5188;
+    }
+}
+.table-details {
+    li{
+        text-decoration: none;
+        color : black;
+    }
+}
 
 @media screen and (min-width : 768px){
     .table {
@@ -56,4 +80,13 @@
         //     width: 600px;
         // }
     }
+    .table-mission {
+        width: 800px;
+    }
 }
+// @media screen and (min-width : 992px){   
+//     .none {
+//         display: table-cell;
+//     }
+ 
+// }
