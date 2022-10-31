@@ -1,0 +1,31 @@
+/* The Modal (background) */
+.hidingPlace {
+    position: relative;
+}
+.details {    
+// .hidingPlace .details {    
+    display: block;
+    position: absolute;
+    background-color: #fefefe;
+    margin: 0 auto;
+    // padding: 20px;
+    width: auto;
+    height: auto;
+    max-width: 400px;
+    border-radius: 6px;
+    // top: 0;
+    // transform: translate(-100%, -100%);
+    // -webkit-transform: translate(-50%, -50%);
+    // -moz-transform: translate(-50%, -50%);
+    // -ms-transform: translate(-50%, -50%);
+    // -o-transform: translate(-50%, -50%);
+    z-index: 2;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    -ms-border-radius: 6px;
+    -o-border-radius: 6px;
+    box-shadow: 0 0 5px 2px grey;
+    overflow: auto;
+  }
+  
+  

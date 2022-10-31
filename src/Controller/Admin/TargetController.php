@@ -24,14 +24,49 @@ class TargetController extends AbstractController
         return $this->render('target/index.html.twig', compact('targets'));
     }
 
+    #[Route('/target/{code}', name: '_show')]
+    public function show(Target $target): Response
+    {
+        return $this->render('target/show.html.twig', compact('target'));
+    }
+
+    #[Route('/target/details/{id}', name: '_details')]
+    public function details(Target $target): Response
+    {
+        return $this->render('target/details.html.twig', compact('target'));
+    }
+
     #[Route('/creation-target', name: '_create')]
     public function createTarget(EntityManagerInterface $em, Request $request): Response
     {
-        $target = new Target();
         
+        // if($request->get('ajax')){
+        //     $target = new Target();
+        //     dump('ajax=1');
+        //     $form = $this->createForm(TargetType::class, $target);
+        // // dd($form->getData());
+        // // $form->remove('dateOfBirth');
+        // $form->handleRequest($request);
+
+        // // dd($target);
+
+        // if ($form->isSubmitted() && $form->isValid()) {
+        //     // dump($target);
+        //     dd('request2');
+
+        //     $em->persist($target);
+        //     $em->flush();
+
+        //     $this->addFlash('success', "Target ajouté.");
+
+        //     // return $this->redirectToRoute('admin_targets');
+        // }
+
+        // return $this->renderForm('target/_content.html.twig', compact('form'));
+        // }
+
+        $target = new Target();
         $form = $this->createForm(TargetType::class, $target);
-        // dd($form->getData());
-        // $form->remove('dateOfBirth');
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

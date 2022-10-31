@@ -4,45 +4,21 @@
 
 {% block body %}
 
-<h1>Les missions</h1>
-<a href="{{ path('admin_missions_create') }}">ajouter une mission</a>
+<h1 class="mb-3">
+    <span>Les missions</span>
+    {% if is_granted('ROLE_ADMIN') %}
+<a  href="{{ path('admin_missions_create') }}" ><img src="{{ asset('build/images/plus.png') }}" alt="Ajouter une mission" class="img-fluid"></a>
+{% endif %}
+    
+</h1>
 
-{% for mission in missions %}
-{# {{ dump(mission) }} #}
-
-<div>
-    Nom de code : {{ mission.codeName }} <br>
-    Titre : {{ mission.title }} <br>
-    Date de début : {{ mission.beginAt |date('d-m-Y') }} <br>
-    Pays : {{ mission.country.name }} <br>
-    {# Description : {{ mission.description }} <br> #}
-    {# date : {{ mission.birth }} #}
-    {# Date de fin : {{ mission.finishAt |date('d-m-Y') }} <br>
-    Type : {{ mission.type }} <br>
-    Statut : {{ mission.status }} <br>
-    Spécialité : {{ mission.speciality }} <br>
-    Planque(s) : 
-    {% for hidingPlace in mission.hidingPlace %}        
-    {{ hidingPlace.code }} <br>
-    {% endfor %}
-    Agent(s) : 
-    {% for agent in mission.agent %}        
-    {{ agent.code }} <br>
-    {% endfor %}
-    Cible(s) : 
-    {% for target in mission.target %}        
-    {{ target.code }} <br>
-    {% endfor %}
-    Agent(s) : 
-    {% for contact in mission.contact %}        
-    {{ contact.code }} <br>
-    {% endfor %} #}
-
-    <a href="{{ path('admin_missions_details' ,{id : mission.id}) }}">détails</a>
-    <a href="{{ path('admin_missions_update' ,{id : mission.id}) }}">modifier</a>
-    <a href="{{ path('admin_missions_delete', {id : mission.id}) }}">supprimer</a>
+<div class="search mb-3">
+    <input class="form-control w-25 mx-auto js-query" type="text" name="query" id="query" placeholder="Recherche par titre">
+<input type="hidden" name="page" value="{{ page }}">
 </div>
 
-{% endfor %}
+<div class="content">    
+    {% include "mission/_content.html.twig" %}
+</div>
 
 {% endblock %}

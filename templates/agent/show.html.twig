@@ -1,0 +1,51 @@
+<table class="table-details">
+    <tbody>
+      <tr class"striped">
+        <th scope="row" >Prénom</th>
+        <td>{{ agent.firstname }}</td>
+      </tr>
+      <tr>
+        <th scope="row">Nom</th>
+        <td>{{ agent.lastname }}</td>
+      </tr>
+      <tr class"striped">
+        <th scope="row" >Date de naissance</th>
+        <td >{{ agent.dateOfBirth |date('d-m-Y') }}</td>
+      </tr>
+      <tr>
+        <th scope="row">Code d'identification</th>
+        <td >{{ agent.code }}</td>
+      </tr>
+      <tr class"striped">
+        <th scope="row" >Pays d'origine</th>
+        <td >{{ agent.country }}</td>
+      </tr>
+      <tr>
+        <th scope="row">Spécialités</th>
+        <td >    
+            <ul>        
+                {% for speciality in agent.speciality %}
+                <li>
+                    {{ speciality.name }}
+                </li>
+                {% endfor %}
+            </ul>        
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+{# Prénom : {{ agent.firstname }} <br>
+Nom : {{ agent.lastname }} <br>
+Date de naissance : {{ agent.dateOfBirth |date('d-m-Y') }} <br>
+Code d'identification : {{ agent.code }} <br>
+Pays d'origine : {{ agent.country }} <br>
+Spécialités : 
+{% set i = 0 %}
+{% for speciality in agent.speciality %}
+{% if i is same as agent.speciality | length %}
+{{ speciality.name }}
+{% else %}
+{{ speciality.name }} -
+{% endif %}
+{% endfor %} #}

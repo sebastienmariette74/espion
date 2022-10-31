@@ -1,6 +1,12 @@
 @import "~bootstrap/scss/bootstrap";
 @import "./layouts/form";
+@import "./layouts/main";
+@import "./layouts/section";
+@import "./layouts/navbar";
+@import "./layouts/table";
+@import "./layouts/modal";
+@import "./layouts/globals";
 
-body {
-    background-color: lightgray;
-}
+// body {
+//     background-color: lightgray;
+// }

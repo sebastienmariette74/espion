@@ -4,27 +4,73 @@
 
 {% block body %}
 
-<h1>Les agents</h1>
-<a href="{{ path('admin_agents_create') }}">ajouter un agent</a>
+<h1 class="mb-3">
+    Les agents
+    <a  href="{{ path('admin_agents_create') }}" ><img src="{{ asset('build/images/plus.png') }}" alt="Ajouter un agent" class="img-fluid"></a>
+</h1>
 
-{% for agent in agents %}
-{# {{ dump(agent) }} #}
-
-<div>
-    Prénom : {{ agent.firstname }} <br>
-    Nom : {{ agent.lastname }} <br>
-    Date de naissance : {{ agent.dateOfBirth |date('d-m-Y') }} <br>
-    Code d'identification : {{ agent.code }} <br>
-    Pays d'origine : {{ agent.country }} <br>
-    Spécialités : 
-    {% for speciality in agent.speciality %}
-        {{ speciality.name }} -
-    {% endfor %}
-
-    <a href="{{ path('admin_agents_update' ,{id : agent.id}) }}">modifier</a>
-    <a href="{{ path('admin_agents_delete', {id : agent.id}) }}">supprimer</a>
-</div>
-
-{% endfor %}
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Code</th>
+            <th scope="col">Spécialité <br>
+                {# <select id="filter-speciality" name="filter-speciality" class="filter"
+                    aria-label="Default select example">
+                    <option value="" {{ paramtype is empty ? "selected" : "" }}></option>
+                    {% for speciality in specialities %}
+                    <option value="{{ speciality.id }}" {{ speciality.id | trans is same as paramspeciality | trans
+                        ? "selected" : "" }}>{{ speciality.name }}</option>
+                    {% endfor %}
+                </select> #}
+            </th>
+            <th scope="col">Pays <br>
+                {# <select id="filter-type" name="filter-type" class="filter" aria-label="Default select example">
+                    <option value="" {{ paramspeciality is empty ? "selected" : "" }}></option>
+                    {% for type in types %}
+                    <option value="{{ type.id }}" {{ type.id | trans is same as paramtype | trans ? "selected" : "" }}>
+                        {{ type.name }}</option>
+                    {% endfor %}
+                </select> #}
+            </th>
+            {% if is_granted('ROLE_ADMIN') %}
+            <th scope="col"></th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            {% endif %}
+        </tr>
+    </thead>
+    <tbody class="table-group-divider">
+        {% for agent in agents %}
+        <tr>
+            <td>{{ agent.code }} </td>
+            <td>
+                <ul>
+                    {% for speciality in agent.speciality %}
+                    <li>
+                        {{ speciality.name }}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </td>
+            <td>{{ agent.country }} </td>
+            <td>
+                <a href="{{ path('admin_agents_details' ,{id : agent.id}) }}">
+                    <img src="{{ asset('build/images/details.png') }}" alt="" class="img-fluid">
+                </a>
+            </td>
+            <td>
+                <a href="{{ path('admin_agents_update' ,{id : agent.id}) }}">
+                    <img src="{{ asset('build/images/edit.png') }}" alt="" class="img-fluid">
+                </a>
+            </td>
+            <td>
+                <a href="{{ path('admin_agents_delete', {id : agent.id}) }}">
+                    <img src="{{ asset('build/images/delete.png') }}" alt="" class="img-fluid">
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
 
 {% endblock %}

@@ -1,10 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Modifier l'agent'{% endblock %}
+{% block title %}Modifier la planque{% endblock %}
 
 {% block body %}
 
-<h1>Modifier l'agent'</h1>
+<h1>Modifier la planque</h1>
 
 {{ form_start(form) }}
     {{ form_row(form.code) }}
@@ -16,6 +16,8 @@
     {# {{ form_row(form.missions) }} #}
     <div class="my-3">
         <button type="submit" class="btn btn-sm btn-warning">MODIFIER</button>
+        <a href="{{ path('admin_hidingPlaces') }}" class="btn btn-sm btn-danger">ANNULER</a>
+
     </div>
 {{ form_end(form) }}
 
