@@ -6,21 +6,65 @@ use App\Entity\Mission;
 use App\Form\MissionType;
 use App\Repository\MissionRepository;
 use App\Repository\SpecialityRepository;
+use App\Repository\StatusMissionRepository;
+use App\Repository\TypeMissionRepository;
+use App\Service\PaginationService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/admin/missions', name: 'admin_missions')]
+#[Route('/', name: 'admin_missions')]
 class MissionController extends AbstractController
 {
     #[Route('/', name: '')]
-    public function index(MissionRepository $missionRepo, SpecialityRepository $specialityRepo): Response
+    public function index(
+        MissionRepository $missionRepo, 
+        SpecialityRepository $specialityRepo, 
+        TypeMissionRepository $typeMissionRepo,
+        StatusMissionRepository $statusMissionRepo,
+        Request $request, 
+        PaginationService $pagination,
+    ): Response
     {
         $missions = $missionRepo->findAll();
+        $specialities = $specialityRepo->findBy([], ['name' => 'ASC']);
+        $types = $typeMissionRepo->findBy([], ['name' => 'ASC']);
+        $allStatus = $statusMissionRepo->findBy([], ['name' => 'ASC']);
 
-        return $this->render('mission/index.html.twig', compact('missions'));
+        if (!$request->get('ajax')) {
+
+            $paginate = $pagination->pagination($request, $missionRepo, 7, "getPaginated", null, null, "getTotal");
+            $missions = $paginate['missions'];
+            $total = $paginate['total'];
+            $limit = $paginate['limit'];
+            $page = $paginate['page'];
+
+            return $this->render('mission/index.html.twig', compact('missions', 'total', 'limit', 'page', 'specialities', 'types', 'allStatus'));
+        } else {            
+
+            // tableau de tous les filtres
+            $filters = [];
+            $query = htmlentities($request->get("query"));
+            $speciality = htmlentities($request->get("speciality"));
+            $type = htmlentities($request->get("type"));
+            $status = htmlentities($request->get("status"));
+
+            $speciality != "" ? $filters['speciality'] = $speciality : "";
+            $type != "" ? $filters['type'] = $type : "";
+            $status != "" ? $filters['status'] = $status : "";
+            
+            // pagination
+            $paginate = $pagination->pagination($request, $missionRepo, 7, "getPaginated", $filters, $query, "getTotal");
+            $missions = $paginate['missions'];
+            $total = $paginate['total'];
+            $limit = $paginate['limit'];
+            $page = $paginate['page'];
+
+            return $this->render('mission/_content.html.twig', compact('missions', 'total', 'limit', 'page', 'specialities', 'types', 'allStatus'));
+        }
+
     }
     #[Route('/mission/{id}', name: '_details')]
     public function show(Mission $mission): Response
@@ -32,13 +76,14 @@ class MissionController extends AbstractController
     #[Route('/creation-mission', name: '_create')]
     public function createMission(EntityManagerInterface $em, Request $request): Response
     {
+
         $mission = new Mission();
-        
+
         $form = $this->createForm(MissionType::class, $mission);
         $form->handleRequest($request);
 
-
-        if ($form->isSubmitted() && $form->isValid()) {            
+        if ($form->isSubmitted() && $form->isValid()) {
+            // dd($form->get('codeName'));
 
             $em->persist($mission);
             $em->flush();

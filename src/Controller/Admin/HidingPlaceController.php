@@ -27,6 +27,14 @@ class HidingPlaceController extends AbstractController
         return $this->render('hidingPlace/index.html.twig', compact('hidingPlaces', 'missions'));
     }
 
+    #[Route('/hidingPlace/{code}', name: '_show')]
+    public function show(HidingPlace $hidingPlace, HidingPlaceRepository $hidingPlaceRepo, SpecialityRepository $specialityRepo, MissionRepository $missionRepo): Response
+    {
+               
+
+        return $this->render('hidingPlace/show.html.twig', compact('hidingPlace'));
+    }
+
     #[Route('/creation-hidingPlace', name: '_create')]
     public function createHidingPlace(EntityManagerInterface $em, Request $request): Response
     {

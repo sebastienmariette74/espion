@@ -66,7 +66,7 @@ Encore
 //    })
 
    .copyFiles([
-    {from: './assets/images',to: 'images/[path][name].[hash:8].[ext]'},
+    {from: './assets/images',to: 'images/[path][name].[ext]'},
     {from: './node_modules/ckeditor4/', to: 'ckeditor/[path][name].[ext]', pattern: /\.(js|css)$/, includeSubdirectories: false},
     {from: './node_modules/ckeditor4/adapters', to: 'ckeditor/adapters/[path][name].[ext]'},
     {from: './node_modules/ckeditor4/lang', to: 'ckeditor/lang/[path][name].[ext]'},

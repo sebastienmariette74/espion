@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contact : {{contact.code}}{% endblock %}
+
+{% block body %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ path('admin_contacts') }}">Contacts</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{ contact.code }}</li>
+    </ol>
+</nav>
+
+<h1 class="mb-3">Contact : {{ contact.code }}</h1>
+{# {% if is_granted('ROLE_ADMIN') %}
+<a href="{{ path('admin_contacts_create') }}">ajouter une contact</a>
+{% endif %} #}
+{#
+<pre>
+    {{ dump(contact.contact) }}
+</pre> #}
+<div>
+    <table class="table">
+        <tbody>
+            <tr>
+                <th scope="row">Code d'identification</th>
+                <td>{{ contact.code }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Prénom</th>
+                <td>{{ contact.firstname }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Nom</th>
+                <td>{{ contact.lastname }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Date de naissance</th>
+                <td>{{ contact.dateOfBirth |date('d-m-Y') }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Pays d'origine</th>
+                <td>{{ contact.country }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>
+
+{% endblock %}

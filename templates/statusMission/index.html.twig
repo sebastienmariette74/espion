@@ -4,16 +4,41 @@
 
 {% block body %}
 
-<h1>Statuts</h1>
-<a href="{{ path('admin_statusMission_create') }}">ajouter un statut</a>
+<h1 class="mb-3">
+    Statuts
+    {% if is_granted('ROLE_ADMIN') %}
+    <a href="{{ path('admin_statusMission_create') }}"><img src="{{ asset('build/images/plus.png') }}"
+            alt="Ajouter une mission" class="img-fluid"></a>
+    {% endif %}
+</h1>
 
-{% for status in statusMission %}
-<div>
-    {{ status.name }}
-    <a href="{{ path('admin_statusMission_update' ,{id : status.id}) }}">modifier</a>
-    <a href="{{ path('admin_statusMission_delete', {id : status.id}) }}">supprimer</a>
-</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Nom</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody class="table-group-divider">
+        {% for status in statusMission %}
+        <tr>
+            <td>{{ status.name }}</td>
+            {% if is_granted('ROLE_ADMIN') %}
+            <td><a href="{{ path('admin_statusMission_update' ,{id : status.id}) }}">
+                    <img src="{{ asset('build/images/edit.png') }}" alt="" class="img-fluid">
+                </a>
+            </td>
+            <td>
+                <a href="{{ path('admin_statusMission_delete', {id : status.id}) }}">
+                    <img src="{{ asset('build/images/delete.png') }}" alt="" class="img-fluid">
+                </a>
+            </td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
 
-{% endfor %}
 
 {% endblock %}

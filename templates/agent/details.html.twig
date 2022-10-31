@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Agent : {{agent.code}}{% endblock %}
+
+{% block body %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ path('admin_agents') }}">Agents</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{ agent.code }}</li>
+    </ol>
+</nav>
+
+<h1 class="mb-3">Agent : {{ agent.code }}</h1>
+<div>
+    <table class="table">
+        <tbody>
+            <tr>
+                <th scope="row">Code d'identification</th>
+                <td>{{ agent.code }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Prénom</th>
+                <td>{{ agent.firstname }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Nom</th>
+                <td>{{ agent.lastname }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Date de naissance</th>
+                <td>{{ agent.dateOfBirth |date('d-m-Y') }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Pays d'origine</th>
+                <td>{{ agent.country }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Spécialités</th>
+                <td>
+                    <ul>
+                        {% for speciality in agent.speciality %}
+                        <li>
+                            {{ speciality.name }}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>
+
+{% endblock %}

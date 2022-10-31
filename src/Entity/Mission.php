@@ -68,9 +68,6 @@ class Mission
     #[ORM\ManyToMany(targetEntity: Contact::class, inversedBy: 'missions')]
     private Collection $contact;
 
-
-
-
     public function __construct()
     {
         $this->hidingPlace = new ArrayCollection();
@@ -306,6 +303,32 @@ class Mission
     public function validate(ExecutionContextInterface $context, $payload)
     {
 
+        if ($this->getTarget() ){
+            
+            $targets = $this->getTarget();
+            $tab = [];
+            foreach ($targets as $target) {
+                // dd($agent);
+                $target = $target->getCountry()->getName();
+                    $tab[] = $target;
+            }
+            $speciality = $tab != null ? $tab[0] : "";
+
+            $agents = $this->getAgent();
+            $countries = [];
+            foreach ($agents as $agent) {
+                $country = $agent->getCountry()->getName();
+                $countries[] = $country;
+            }
+
+            if (in_array($speciality, $countries)) {
+            $context->buildViolation('Les agents ne peuvent pas avoir la même nationalité que les cibles.')
+                ->atPath('agent')
+                ->addViolation();
+            }
+        }
+
+
         if ($this->getSpeciality()) {
             $agents = $this->getAgent();
             
@@ -318,12 +341,12 @@ class Mission
                     $tab[] = $specialityName;
                 }
             }
-            dump($tab);
+            // dump($tab);
 
             $country = $this->getCountry()->getName();
             
             $speciality = $this->getSpeciality()->getName();
-            dump($tab, $speciality, $country);
+            // dump($tab, $speciality, $country);
 
             if (!in_array($speciality, $tab)) {
 

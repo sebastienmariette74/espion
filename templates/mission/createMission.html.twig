@@ -6,27 +6,56 @@
 
 <h1>Créer une mission</h1>
 
+
+
+<div class="form-create">
+    
 {{ form_start(form) }}
-<div class="form_firstPart">
-    {{ form_row(form.codeName) }}
-    {{ form_row(form.title) }}
-    {{ form_row(form.description) }}
-    {{ form_row(form.begin_at) }}
-    {{ form_row(form.finish_at) }}
-    {{ form_row(form.country) }}
-    {{ form_row(form.target) }}
-    {{ form_row(form.speciality) }}
+
+<div class="row">
+    <div class="col-md-6">
+        {{ form_row(form.codeName) }}
+    </div>
+    <div class="col-md-6">
+        {{ form_row(form.title) }}
+    </div>
+    <div class="col-12">{{ form_row(form.description) }}</div>
 </div>
-<div class="form_secondPart">
-    {{ form_row(form.type) }}
-    {{ form_row(form.status) }}
-    {{ form_row(form.hidingPlace) }}
-    {{ form_row(form.agent) }}
-    {{ form_row(form.contact) }}
-    <div class="my-3">
-        <button type="submit" class="btn btn-sm btn-warning">AJOUTER</button>
+<div class="row">
+    <div class="col-6 col-md-4">{{ form_row(form.country) }}</div>
+    <div class="col-6 col-md-4">{{ form_row(form.begin_at) }}</div>
+    <div class="col-6 col-md-4">{{ form_row(form.finish_at) }}</div>
+</div>
+<div class="row">
+    <div class="col-md-6 ">{{ form_row(form.speciality) }}</div>
+    <div class="col-6 ">{{ form_row(form.type) }}</div>
+    <div class="col-6 ">{{ form_row(form.status) }}</div>
+</div>
+<div class="row">
+    <div class="col-6 ">
+        {{ form_label(form.target) }}
+
+        {# <a href="" class="open-modal">
+            <img src="{{ asset('build/images/plus.png') }}" alt="" class="img-fluid">
+        </a> #}
+        {{ form_widget(form.target) }}
+    </div>
+    <div class="col-6 hidingPlace">
+        {{ form_row(form.hidingPlace) }}
+    </div>
+    <div class="col-12">{{ form_row(form.agent) }}
+    </div>
+    <div class="col-12 contact">{{ form_row(form.contact) }}
     </div>
 </div>
+<div class="my-3">
+    <button type="submit" class="btn btn-sm btn-warning">AJOUTER</button>
+    <a href="{{ path('admin_missions')}}" class="btn btn-sm btn-danger">ANNULER</a>
+</div>
+
 {{ form_end(form) }}
+</div>
+{% include "_layouts/_modal.html.twig" %}
+
 
 {% endblock %}

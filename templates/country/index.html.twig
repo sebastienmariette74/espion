@@ -4,16 +4,40 @@
 
 {% block body %}
 
-<h1>Pays</h1>
-<a href="{{ path('admin_country_create') }}">ajouter un pays</a>
+<h1 class="mb-3">
+    Pays
+    {% if is_granted('ROLE_ADMIN') %}
+    <a href="{{ path('admin_country_create') }}"><img src="{{ asset('build/images/plus.png') }}"
+            alt="Ajouter un pays" class="img-fluid"></a>
+    {% endif %}
+</h1>
 
-{% for country in countries %}
-<div>
-    {{ country.name }}
-    <a href="{{ path('admin_country_update' ,{id : country.id}) }}">modifier</a>
-    <a href="{{ path('admin_country_delete', {id : country.id}) }}">supprimer</a>
-</div>
-
-{% endfor %}
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Nom</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody class="table-group-divider">
+        {% for country in countries %}
+        <tr>
+            <td>{{ country.name }}</td>
+            {% if is_granted('ROLE_ADMIN') %}
+            <td><a href="{{ path('admin_country_update' ,{id : country.id}) }}">
+                    <img src="{{ asset('build/images/edit.png') }}" alt="" class="img-fluid">
+                </a>
+            </td>
+            <td>
+                <a href="{{ path('admin_country_delete', {id : country.id}) }}">
+                    <img src="{{ asset('build/images/delete.png') }}" alt="" class="img-fluid">
+                </a>
+            </td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
 
 {% endblock %}

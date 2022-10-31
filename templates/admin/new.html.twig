@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Création d'un administrateur{% endblock %}
+
+{% block body %}
+
+<h1 class="mb-3">Création d'un administrateur</h1>
+
+{{ form_start(form) }}
+{{ form_row(form.email)}}
+{{ form_row(form.password)}}
+{{ form_row(form.firstname)}}
+{{ form_row(form.lastName)}}
+{{ form_row(form.created_at)}}
+<div class="my-3">
+    <button type="submit" class="btn btn-sm btn-primary">VALIDER</button>
+    <a href="{{ path('admin_admins') }}" class="btn btn-sm btn-danger">ANNULER</a>
+</div>
+{{ form_end(form) }}
+{% endblock %}
