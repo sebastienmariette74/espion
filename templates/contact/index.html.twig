@@ -5,29 +5,17 @@
 {% block body %}
 
 <h1 class="mb-3">Les contacts
-    {% if is_granted('ROLE_ADMIN') %}
 <a  href="{{ path('admin_contacts_create') }}" ><img src="{{ asset('build/images/plus.png') }}" alt="Ajouter un contact" class="img-fluid"></a>
-{% endif %}
 </h1>
 
 <table class="table">
     <thead>
         <tr>
             <th scope="col">Code</th>
-            <th scope="col">Pays <br>
-                {# <select id="filter-type" name="filter-type" class="filter" aria-label="Default select example">
-                    <option value="" {{ paramspeciality is empty ? "selected" : "" }}></option>
-                    {% for type in types %}
-                    <option value="{{ type.id }}" {{ type.id | trans is same as paramtype | trans ? "selected" : "" }}>
-                        {{ type.name }}</option>
-                    {% endfor %}
-                </select> #}
-            </th>
-            {% if is_granted('ROLE_ADMIN') %}
+            <th scope="col">Pays</th>
             <th scope="col"></th>
             <th scope="col"></th>
             <th scope="col"></th>
-            {% endif %}
         </tr>
     </thead>
     <tbody class="table-group-divider">
@@ -40,7 +28,6 @@
                     <img src="{{ asset('build/images/details.png') }}" alt="" class="img-fluid">
                 </a>
             </td>
-            {% if is_granted('ROLE_ADMIN') %}
             <td>
                 <a href="{{ path('admin_contacts_update' ,{id : contact.id}) }}">
                     <img src="{{ asset('build/images/edit.png') }}" alt="" class="img-fluid">
@@ -51,7 +38,6 @@
                     <img src="{{ asset('build/images/delete.png') }}" alt="" class="img-fluid">
                 </a>
             </td>
-            {% endif %}
         </tr>
         {% endfor %}
     </tbody>

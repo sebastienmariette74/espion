@@ -34,18 +34,3 @@
       </tr>
     </tbody>
   </table>
-
-{# Prénom : {{ agent.firstname }} <br>
-Nom : {{ agent.lastname }} <br>
-Date de naissance : {{ agent.dateOfBirth |date('d-m-Y') }} <br>
-Code d'identification : {{ agent.code }} <br>
-Pays d'origine : {{ agent.country }} <br>
-Spécialités : 
-{% set i = 0 %}
-{% for speciality in agent.speciality %}
-{% if i is same as agent.speciality | length %}
-{{ speciality.name }}
-{% else %}
-{{ speciality.name }} -
-{% endif %}
-{% endfor %} #}

@@ -38,10 +38,8 @@
                       </select>
                 </th>
                 <th ></th>
-                {% if is_granted('ROLE_ADMIN') %}
                 <th ></th>
                 <th ></th>
-                {% endif %}
             </tr>
         </thead>
         <tbody class="table-group-divider">
@@ -55,10 +53,7 @@
                     <a href="{{ path('admin_missions_details' ,{id : mission.id}) }}">
                     <img src="{{ asset('build/images/details.png') }}" alt="" class="img-fluid">
                     </a>
-                </td>
-    
-    
-                {% if is_granted('ROLE_ADMIN') %}
+                </td>       
                 <td>
                     <a href="{{ path('admin_missions_update' ,{id : mission.id}) }}">
                     <img src="{{ asset('build/images/edit.png') }}" alt="" class="img-fluid">
@@ -69,7 +64,6 @@
                     <img src="{{ asset('build/images/delete.png') }}" alt="" class="img-fluid">
                     </a>
                 </td>  
-                {% endif %}          
             </tr>
             {% endfor %}
         </tbody>

@@ -39,7 +39,7 @@ class AgentController extends AbstractController
             $page = $paginate['page'];
 
             return $this->render('agent/index.html.twig', compact('agents', 'total', 'limit', 'page', 'offset'));
-        } else {            
+        } else {
 
             // tableau de tous les filtres
             $filters = [];

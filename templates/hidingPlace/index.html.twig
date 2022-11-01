@@ -5,10 +5,8 @@
 {% block body %}
 
 <h1 class="mb-3">Les planques
-    {% if is_granted('ROLE_ADMIN') %}
     <a href="{{ path('admin_hidingPlaces_create') }}"><img src="{{ asset('build/images/plus.png') }}"
             alt="Ajouter une planque" class="img-fluid"></a>
-    {% endif %}
 </h1>
 
 <table class="table">
@@ -27,7 +25,6 @@
             <td>{{ hidingPlace.code }}</td>
             <td>{{ hidingPlace.type.name }}</td>
             <td>{{ hidingPlace.country }}</td>
-            {% if is_granted('ROLE_ADMIN') %}
             <td><a href="{{ path('admin_hidingPlaces_update' ,{id : hidingPlace.id}) }}">
                     <img src="{{ asset('build/images/edit.png') }}" alt="" class="img-fluid">
                 </a>
@@ -37,7 +34,6 @@
                     <img src="{{ asset('build/images/delete.png') }}" alt="" class="img-fluid">
                 </a>
             </td>
-            {% endif %}
         </tr>
         {% endfor %}
     </tbody>

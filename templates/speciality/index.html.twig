@@ -6,10 +6,8 @@
 
 <h1 class="mb-3">
     Spécialités
-    {% if is_granted('ROLE_ADMIN') %}
     <a href="{{ path('admin_speciality_create') }}"><img src="{{ asset('build/images/plus.png') }}"
             alt="Ajouter une mission" class="img-fluid"></a>
-    {% endif %}
 </h1>
 
 <table class="table">
@@ -24,7 +22,6 @@
         {% for speciality in specialities %}
         <tr>
             <td>{{ speciality.name }}</td>
-            {% if is_granted('ROLE_ADMIN') %}
             <td><a href="{{ path('admin_speciality_update' ,{id : speciality.id}) }}">
                     <img src="{{ asset('build/images/edit.png') }}" alt="" class="img-fluid">
                 </a>
@@ -34,7 +31,6 @@
                     <img src="{{ asset('build/images/delete.png') }}" alt="" class="img-fluid">
                 </a>
             </td>
-            {% endif %}
         </tr>
         {% endfor %}
     </tbody>
