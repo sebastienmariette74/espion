@@ -1,12 +1,9 @@
 const $ = require("jquery");
 
-$mainToggle = false;
-
-$navbarToggle = false;
+let navbarToggle = false;
 $('.navbar-toggler').on('click', function(){
-  console.log('navbar-toggle');
-    if (!$navbarToggle) {
-        $navbarToggle = true;
+    if (!navbarToggle) {
+        navbarToggle = true;
         $(".navbarSupportedContent").css({
             'display': 'block',
             'position' : 'absolute',
@@ -18,7 +15,7 @@ $('.navbar-toggler').on('click', function(){
             'width': '200px'
         });
       } else {
-        $navbarToggle = false;
+        navbarToggle = false;
         $(".navbarSupportedContent").css({
           display: "none",
         });

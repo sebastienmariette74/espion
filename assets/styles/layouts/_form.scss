@@ -11,11 +11,8 @@ form {
     }
 }
 
-#mission_hidingPlace option {
-    text-decoration: underline;
-}
-
 #mission_hidingPlace option {    
     text-decoration: underline;
     color : #0D6EFD;
+    cursor: pointer;
 }

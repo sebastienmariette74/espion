@@ -1,12 +1,7 @@
 const $ = require('jquery');
-console.log($('.details').length);
 
-// console.log('table');
-
-$('.table-show li').css('cursor', 'pointer');
-
+/* ouverture d'une infobulle au passage de la souris sur les éléments d'une liste */
 $('.table-show').on('mouseover', 'li', function(event){
-        console.log($('.details').length);
         let code = $(this).text();
         firstUrl = $(this).data('firsturl')
         secondUrl = $(this).data('secondurl')
@@ -14,20 +9,13 @@ $('.table-show').on('mouseover', 'li', function(event){
         axios
         .get(url.origin + '/admin/' + firstUrl + '/' + secondUrl + '/' + code)
         .then((response) => {
-            // let li = $(this);
             if ($('.details').length < 1){
                 $("<div class='details'></div>").insertBefore($(this).parent("ul"));
             $(`.details`).html(response.data);
-            // if (element != null) {
-            // $(`.${element}`).html(response.data);
-            // }
             let heightDetails = $('.details').height();
-            console.log(heightDetails);
             let top = '-' + (heightDetails) + 'px';
-            console.log(top);
             $(`.details`).css('top', top);
-            }
-            
+            }            
         })
         .catch((error) => {
             // '${.content}'.html = `Erreur: ${error.message}`;
@@ -37,6 +25,7 @@ $('.table-show').on('mouseover', 'li', function(event){
     
 });
 
+/* fermeture de l'infobulle */
 $('.table-show').on('mouseout', 'li', function(){    
       $('.details' ).remove();
 });

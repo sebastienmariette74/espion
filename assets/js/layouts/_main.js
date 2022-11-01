@@ -22,7 +22,6 @@ $(".mainArrow").on("click", function () {
 });
 
 /*_______________ style links ________________________*/
-
 let pathname = new URL(window.location.href).pathname;
 
 $(".main-link").each(function(){

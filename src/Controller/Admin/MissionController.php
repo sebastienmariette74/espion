@@ -35,7 +35,7 @@ class MissionController extends AbstractController
 
         if (!$request->get('ajax')) {
 
-            $paginate = $pagination->pagination($request, $missionRepo, 7, "getPaginated", null, null, "getTotal");
+            $paginate = $pagination->pagination($request, $missionRepo, 3, "getPaginated", null, null, "getTotal");
             $missions = $paginate['missions'];
             $total = $paginate['total'];
             $limit = $paginate['limit'];
@@ -56,7 +56,7 @@ class MissionController extends AbstractController
             $status != "" ? $filters['status'] = $status : "";
             
             // pagination
-            $paginate = $pagination->pagination($request, $missionRepo, 7, "getPaginated", $filters, $query, "getTotal");
+            $paginate = $pagination->pagination($request, $missionRepo, 3, "getPaginated", $filters, $query, "getTotal");
             $missions = $paginate['missions'];
             $total = $paginate['total'];
             $limit = $paginate['limit'];

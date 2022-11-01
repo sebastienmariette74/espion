@@ -1,15 +1,18 @@
+const { each } = require("jquery");
 const $ = require("jquery");
 
+/* L'erreur(contrainte) d'un CKEditorType s'affiche 2 fois. 
+Pour résoudre le problème, j'affiche 1 erreur à la fois.
+Même si cela concerne plusieurs champs.
+*/
 let errors = $('.invalid-feedback');
 errors.each(function(index){
   if(index != 0){
     $(this).css('visibility', 'hidden');
   }
-  // $(this).css('color', 'green');
-  // console.log($(this));
 })
 
-let title = $("#mission_title");
+/* Non affichage des champs Target, Agent et Contact au démarrage */
 let target = $("#mission_target");
 let agent = $("#mission_agent option");
 
@@ -17,7 +20,6 @@ let noTarget = $("#mission_target option:selected").text();
 if (noTarget === "") {
   agent.css("display", "none");
 }
-console.log(noTarget);
 
 let country = $("#mission_country");
 let noCountry = $("#mission_country option:selected").text();
@@ -29,14 +31,16 @@ if (noCountry === "Pays") {
   contact.css("display", "none");
 }
 
+/* AJAX - modification des champs hidingPlace et Contact après avoir choisi un pays */
 country.on("change", function () {
+  console.log($('#mission_hidingPlace option'));
+
   if ($(this).text() != "Pays") {
     hidingPlace.css("display", "block");
     contact.css("display", "block");
   }
   let form = $(this).closest("form");
   let data = {};
-  // data[title.attr("title")] = title.text();
   data[country.attr("name")] = country.val();
   data[date.attr("name")] = date.val();
   $.ajax({
@@ -44,32 +48,24 @@ country.on("change", function () {
     type: form.attr("method"),
     data: data,
     complete: function (html) {
-      // $("#mission_title").replaceWith(
-      //   $(html.responseText).find("#mission_title")
-      // );
       $("#mission_hidingPlace").replaceWith(
         $(html.responseText).find("#mission_hidingPlace")
       );
       $("#mission_contact").replaceWith(
         $(html.responseText).find("#mission_contact")
       );
-      // $("#mission_agent").replaceWith(
-      //   // ... with the returned one from the AJAX response.
-      //   $(html.responseText).find("#mission_agent")
-      // );
-      // Position field now displays the appropriate positions.
     },
   });
 });
 
-let date2 = $("#mission_begin_at");
+// let date2 = $("#mission_begin_at");
+/* AJAX - modification du champ agent après avoir choisi une ou plusieurs cibles */
 
 target.on("change", function () {
-  console.log("change");
   let form = $(this).closest("form");
   let data = {};
   data[target.attr("name")] = target.val();
-  data[date2.attr("name")] = date2.val();
+  data[date.attr("name")] = date.val();
   $.ajax({
     url: form.attr("action"),
     type: form.attr("method"),
@@ -82,33 +78,8 @@ target.on("change", function () {
   });
 });
 
-// let speciality = $("#mission_speciality");
-// let date3 = $("#mission_begin_at");
-
-// console.log(speciality);
-
-// speciality.on("change", function () {
-//   console.log("change");
-//   let form = $(this).closest("form");
-//   let data = {};
-//   data[speciality.attr("name")] = speciality.val();
-//   data[date3.attr("name")] = date3.val();
-//   $.ajax({
-//     url: form.attr("action"),
-//     type: form.attr("method"),
-//     data: data,
-//     complete: function (html) {
-//       $("#mission_agent").replaceWith(
-//         $(html.responseText).find("#mission_agent")
-//       );
-//     },
-//   });
-// });
-
+/* affichage d'une info-bulle au passage de la souris sur un élément de la liste des planques */
 $(".form-create").on("mouseover", "#mission_hidingPlace option", function () {
-  // $('.modal').css('display', 'block');
-  // $("<div class='details'></div>").prependTo($(".hidingPlace"));
-  // $(this).closest().append("<div class='modal'></div>");
   let code = $(this).text();
   if (code.indexOf('(') != -1) {
     code = code.split('(')[0];
@@ -119,19 +90,11 @@ $(".form-create").on("mouseover", "#mission_hidingPlace option", function () {
     .then((response) => {
       if ($(".details").length < 1) {
         $("<div class='details'></div>").prependTo($(".hidingPlace"));
-        // $("<div class='details'></div>").insertBefore($(this).parent("ul"));
         $(`.details`).html(response.data);
-        // if (element != null) {
-        // $(`.${element}`).html(response.data);
-        // }
         let heightDetails = $(".details").height();
         let top = "-" + heightDetails + "px";
         $(`.details`).css("top", top);
       }
-      // $(`.details`).html(response.data);
-      // if (element != null) {
-      // $(`.${element}`).html(response.data);
-      // }
     })
     .catch((error) => {
       // '${.content}'.html = `Erreur: ${error.message}`;
@@ -140,29 +103,12 @@ $(".form-create").on("mouseover", "#mission_hidingPlace option", function () {
     });
 });
 
+/* fermeture de l'infobulle */
 $('.form-create').on('mouseout', '#mission_hidingPlace option', function(){
   $('.details').remove();
 });
-
 $('.form-create').on('mouseout', '.details', function(){    
   $('.details' ).remove();
 });
 
-/* _________________ selection des agents par filtre __________________*/
-// let agentSpeciality = $('#mission_agentSpeciality');
-// agentSpeciality.on("change", function () {
-//   let form = $(this).closest("form");
-//   let data = {};
-//   data[agentSpeciality.attr("name")] = agentSpeciality.val();
-//   data[date2.attr("name")] = date2.val();
-//   $.ajax({
-//     url: form.attr("action"),
-//     type: form.attr("method"),
-//     data: data,
-//     complete: function (html) {
-//       $("#mission_agent").replaceWith(
-//         $(html.responseText).find("#mission_agent")
-//       );
-//     },
-//   });
-// });
+
