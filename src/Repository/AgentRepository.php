@@ -67,24 +67,34 @@ class AgentRepository extends ServiceEntityRepository
        ;
    }
 
-//    public function findAllBySpeciality($speciality): array
-//    {
-//        return $this->createQueryBuilder('a')
-//        ->innerJoin('a.speciality', 's')
-//        ->where('s.name = :speciality')
-//             ->setParameter('speciality', $speciality)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+   public function getPaginated($page, $limit, $filters, $querySearch)
+    {
+        $query = $this->createQueryBuilder('a')
+            ->setFirstResult(($page * $limit) - $limit)
+            ->setMaxResults($limit)
+            ->orderBy('a.code');
 
-//    public function findOneBySomeField($value): ?Agent
-//    {
-//        return $this->createQueryBuilder('a')
-//            ->andWhere('a.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+        if ($querySearch != null) {
+            $query->andWhere('a.code LIKE :query')
+                ->setParameter('query', '%' . $querySearch . '%')
+                ->orderBy('a.code');
+        }
+
+        return $query->getQuery()->getResult();
+    }
+
+    public function getTotal($filters, $querySearch)
+    {
+        $query = $this->createQueryBuilder('a')
+            ->select('COUNT(a)');
+
+        if ($querySearch != null) {
+            $query->andWhere('a.code LIKE :query')
+                ->setParameter('query', '%' . $querySearch . '%')
+                ->orderBy('a.code');
+        }
+
+        return $query->getQuery()->getSingleScalarResult();
+    }
+
 }

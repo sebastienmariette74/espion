@@ -14,7 +14,6 @@ class PaginationService extends ServiceEntityRepository
     public function pagination(
         Request $request,
         $repo,
-        // UserRepository $userRepo,
         int $limit,
         string $function,
         array $filters = null,
@@ -22,18 +21,16 @@ class PaginationService extends ServiceEntityRepository
         string $functionTotal
     ): array
     {
-        // $limit = 5;
         $page = htmlentities((int)$request->query->get("page", 1));
         
-        $missions = $repo->$function($page, $limit, $filters, $query);
+        $response = $repo->$function($page, $limit, $filters, $query);
         $total = $repo->$functionTotal($filters, $query);
-        // dump($page, $limit, $total, $missions, $repo);
 
         return [ 
             'page' => $page,
             'limit' => $limit,
             'total' => $total,
-            'missions' => $missions,
+            'response' => $response,
         ];
     }
     

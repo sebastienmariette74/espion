@@ -1,12 +1,46 @@
-{{ form_start(form) }}
-{{ form_row(form.firstname) }}
-{{ form_row(form.lastname) }}
-{{ form_row(form.dateOfBirth) }}
-{{ form_row(form.code) }}
-{{ form_row(form.country) }}
-{# {{ form_row(form.speciality) }} #}
-{# {{ form_row(form.firstname) }} #}
-<div class="my-3">
-    <button type="submit" class="btn btn-sm btn-warning">AJOUTER</button>
+{% set paramspeciality = app.request.get('speciality') %}
+{% set paramtype = app.request.get('type') %}
+{% set paramstatus = app.request.get('status') %}
+
+<div class="mb-3 d-flex justify-content-center offset">
+    <span class="me-3">
+        Nombre de cibles par page :
+    </span>
+    <input type="number" name="number" id="offset" class="filter form-control" value="{{ offset }}"  min="1" max="11">  
 </div>
-{{ form_end(form) }}
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Code</th>
+            <th scope="col">Pays <br>
+            </th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody class="table-group-divider">
+        {% for target in targets %}
+        <tr>
+            <td>{{ target.code }} </td>
+            <td>{{ target.country }} </td>
+            <td>
+                <a href="{{ path('admin_targets_details' ,{id : target.id}) }}">
+                    <img src="{{ asset('build/images/details.png') }}" alt="" class="img-fluid">
+                </a>
+            </td>
+            <td>
+                <a href="{{ path('admin_targets_update' ,{id : target.id}) }}">
+                    <img src="{{ asset('build/images/edit.png') }}" alt="" class="img-fluid">
+                </a>
+            </td>
+            <td>
+                <a href="{{ path('admin_targets_delete', {id : target.id}) }}">
+                    <img src="{{ asset('build/images/delete.png') }}" alt="" class="img-fluid">
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% include "_layouts/_pagination.html.twig" %}

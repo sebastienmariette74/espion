@@ -6,6 +6,14 @@
 
 <h1>Créer une cible</h1>
 
-{% include "target/_content.html.twig" %}
-
+{{ form_start(form) }}
+{{ form_row(form.firstname) }}
+{{ form_row(form.lastname) }}
+{{ form_row(form.dateOfBirth) }}
+{{ form_row(form.code) }}
+{{ form_row(form.country) }}
+<div class="my-3">
+    <button type="submit" class="btn btn-sm btn-warning">AJOUTER</button>
+</div>
+{{ form_end(form) }}
 {% endblock %}

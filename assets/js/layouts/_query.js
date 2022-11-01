@@ -4,10 +4,10 @@ const $ = require("jquery");
 
 /* _____________________FILTRE PAR MOT_____________________________*/
 $(".js-query").on("keyup", function () {
-  let speciality = $("#filter-speciality option:selected").val();
-  let type = $("#filter-type option:selected").val();
-  let status = $("#filter-status option:selected").val();
-  let query = $(".js-query").val();
+  let speciality = $("#filter-speciality option:selected").val() ?? "";
+  let type = $("#filter-type option:selected").val() ?? "";
+  let status = $("#filter-status option:selected").val() ?? "";
+  let query = $(".js-query").val() ?? "";
   let offset = $("#offset").val();
 
   let filters = {
@@ -48,10 +48,10 @@ $(".js-query").on("keyup", function () {
 
 /* _____________________FILTRES_____________________________*/
 $(".content").on("change", ".filter", function () {
-  let speciality = $("#filter-speciality option:selected").val();
-  let type = $("#filter-type option:selected").val();
-  let status = $("#filter-status option:selected").val();
-  let query = $(".js-query").val();
+  let speciality = $("#filter-speciality option:selected").val() ?? "";
+  let type = $("#filter-type option:selected").val() ?? "";
+  let status = $("#filter-status option:selected").val() ?? "";
+  let query = $(".js-query").val() ?? "";
   let offset = $("#offset").val();
 
   let filters = {

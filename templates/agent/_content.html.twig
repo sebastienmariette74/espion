@@ -1,0 +1,59 @@
+{% set paramspeciality = app.request.get('speciality') %}
+{% set paramtype = app.request.get('type') %}
+{% set paramstatus = app.request.get('status') %}
+
+<div class="mb-3 d-flex justify-content-center offset">
+    <span class="me-3">
+        Nombre d'agents par page :
+    </span>
+    <input type="number" name="number" id="offset" class="filter form-control" value="{{ offset }}"  min="1" max="11">  
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Code</th>
+            <th scope="col">Spécialité <br>
+            </th>
+            <th scope="col">Pays <br>
+            </th>
+            {% if is_granted('ROLE_ADMIN') %}
+            <th scope="col"></th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            {% endif %}
+        </tr>
+    </thead>
+    <tbody class="table-group-divider">
+        {% for agent in agents %}
+        <tr>
+            <td>{{ agent.code }} </td>
+            <td>
+                <ul>
+                    {% for speciality in agent.speciality %}
+                    <li>
+                        {{ speciality.name }}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </td>
+            <td>{{ agent.country }} </td>
+            <td>
+                <a href="{{ path('admin_agents_details' ,{id : agent.id}) }}">
+                    <img src="{{ asset('build/images/details.png') }}" alt="" class="img-fluid">
+                </a>
+            </td>
+            <td>
+                <a href="{{ path('admin_agents_update' ,{id : agent.id}) }}">
+                    <img src="{{ asset('build/images/edit.png') }}" alt="" class="img-fluid">
+                </a>
+            </td>
+            <td>
+                <a href="{{ path('admin_agents_delete', {id : agent.id}) }}">
+                    <img src="{{ asset('build/images/delete.png') }}" alt="" class="img-fluid">
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% include "_layouts/_pagination.html.twig" %}

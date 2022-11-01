@@ -39,28 +39,33 @@ class TargetRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Target[] Returns an array of Target objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('t')
-//            ->andWhere('t.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('t.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    public function getPaginated($page, $limit, $filters, $querySearch)
+    {
+        $query = $this->createQueryBuilder('t')
+            ->setFirstResult(($page * $limit) - $limit)
+            ->setMaxResults($limit)
+            ->orderBy('t.code');
 
-//    public function findOneBySomeField($value): ?Target
-//    {
-//        return $this->createQueryBuilder('t')
-//            ->andWhere('t.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+        if ($querySearch != null) {
+            $query->andWhere('t.code LIKE :query')
+                ->setParameter('query', '%' . $querySearch . '%')
+                ->orderBy('t.code');
+        }
+
+        return $query->getQuery()->getResult();
+    }
+
+    public function getTotal($filters, $querySearch)
+    {
+        $query = $this->createQueryBuilder('t')
+            ->select('COUNT(t)');
+
+        if ($querySearch != null) {
+            $query->andWhere('t.code LIKE :query')
+                ->setParameter('query', '%' . $querySearch . '%')
+                ->orderBy('t.code');
+        }
+
+        return $query->getQuery()->getSingleScalarResult();
+    }
 }

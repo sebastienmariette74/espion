@@ -6,6 +6,9 @@ use App\Entity\Agent;
 use App\Form\AgentType;
 use App\Repository\AgentRepository;
 use App\Repository\SpecialityRepository;
+use App\Repository\StatusMissionRepository;
+use App\Repository\TypeMissionRepository;
+use App\Service\PaginationService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,12 +19,42 @@ use Symfony\Component\Routing\Annotation\Route;
 class AgentController extends AbstractController
 {
     #[Route('/', name: '')]
-    public function index(AgentRepository $agentRepo, SpecialityRepository $specialityRepo): Response
+    public function index(
+        AgentRepository $agentRepo, 
+        SpecialityRepository $specialityRepo,
+        TypeMissionRepository $typeMissionRepo,
+        StatusMissionRepository $statusMissionRepo,
+        Request $request,
+        PaginationService $pagination
+    ): Response
     {
         $agents = $agentRepo->findAll();
-        $specialities = $specialityRepo->findAll();
 
-        return $this->render('agent/index.html.twig', compact('agents', 'specialities'));
+        if (!$request->get('ajax')) {
+            $offset = 9;
+            $paginate = $pagination->pagination($request, $agentRepo, $offset, "getPaginated", null, null, "getTotal");
+            $agents = $paginate['response'];
+            $total = $paginate['total'];
+            $limit = $paginate['limit'];
+            $page = $paginate['page'];
+
+            return $this->render('agent/index.html.twig', compact('agents', 'total', 'limit', 'page', 'offset'));
+        } else {            
+
+            // tableau de tous les filtres
+            $filters = [];
+            $query = htmlentities($request->get("query"));
+            $offset = (int)(htmlentities($request->get("offset")));
+
+            // pagination
+            $paginate = $pagination->pagination($request, $agentRepo, $offset, "getPaginated", $filters, $query, "getTotal");
+            $agents = $paginate['response'];
+            $total = $paginate['total'];
+            $limit = $paginate['limit'];
+            $page = $paginate['page'];
+
+            return $this->render('agent/_content.html.twig', compact('agents', 'total', 'limit', 'page', 'offset'));
+        }
     }
 
     #[Route('/agent/{code}', name: '_show')]

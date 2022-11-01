@@ -7,14 +7,16 @@
 <h1 class="mb-3">
     <span>Les missions</span>
     {% if is_granted('ROLE_ADMIN') %}
-<a  href="{{ path('admin_missions_create') }}" ><img src="{{ asset('build/images/plus.png') }}" alt="Ajouter une mission" class="img-fluid"></a>
-{% endif %}
-    
+    <a href="{{ path('admin_missions_create') }}"><img src="{{ asset('build/images/plus.png') }}"
+            alt="Ajouter une mission" class="img-fluid"></a>
+    {% endif %}
+
 </h1>
 
 <div class="search mb-3">
-    <input class="form-control w-25 mx-auto js-query" type="text" name="query" id="query" placeholder="Recherche par titre">
-<input type="hidden" name="page" value="{{ page }}">
+    <input class="form-control w-25 mx-auto js-query" type="text" name="query" id="query"
+        placeholder="Recherche par titre">
+    <input type="hidden" name="page" value="{{ page }}">
 </div>
 
 <div class="content">

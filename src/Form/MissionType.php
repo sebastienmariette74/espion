@@ -133,9 +133,6 @@ class MissionType extends AbstractType
                     return $ar->createQueryBuilder('a')
                         ->orderBy('a.firstname', 'ASC');
                 },
-                // 'choice_label' => function (Agent $agent) {
-                //     return $agent->getCode();
-                // },
                 'choice_label' => function (Agent $agent) {
                     $specialities = $agent->getSpeciality();
                     $tab = [];

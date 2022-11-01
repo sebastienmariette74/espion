@@ -6,6 +6,9 @@ use App\Entity\Target;
 use App\Form\TargetType;
 use App\Repository\TargetRepository;
 use App\Repository\SpecialityRepository;
+use App\Repository\StatusMissionRepository;
+use App\Repository\TypeMissionRepository;
+use App\Service\PaginationService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,11 +19,41 @@ use Symfony\Component\Routing\Annotation\Route;
 class TargetController extends AbstractController
 {
     #[Route('/', name: '')]
-    public function index(TargetRepository $targetRepo, SpecialityRepository $specialityRepo): Response
+    public function index(
+        TargetRepository $targetRepo, 
+        TypeMissionRepository $typeMissionRepo,
+        StatusMissionRepository $statusMissionRepo,
+        Request $request,
+        PaginationService $pagination
+    ): Response
     {
         $targets = $targetRepo->findAll();
 
-        return $this->render('target/index.html.twig', compact('targets'));
+        if (!$request->get('ajax')) {
+            $offset = 9;
+            $paginate = $pagination->pagination($request, $targetRepo, $offset, "getPaginated", null, null, "getTotal");
+            $targets = $paginate['response'];
+            $total = $paginate['total'];
+            $limit = $paginate['limit'];
+            $page = $paginate['page'];
+
+            return $this->render('target/index.html.twig', compact('targets', 'total', 'limit', 'page', 'offset'));
+        } else {            
+
+            // tableau de tous les filtres
+            $filters = [];
+            $query = htmlentities($request->get("query"));
+            $offset = (int)(htmlentities($request->get("offset")));
+            
+            // pagination
+            $paginate = $pagination->pagination($request, $targetRepo, $offset, "getPaginated", $filters, $query, "getTotal");
+            $targets = $paginate['response'];
+            $total = $paginate['total'];
+            $limit = $paginate['limit'];
+            $page = $paginate['page'];
+
+            return $this->render('target/_content.html.twig', compact('targets', 'total', 'limit', 'page', 'offset'));
+        }
     }
 
     #[Route('/target/{code}', name: '_show')]

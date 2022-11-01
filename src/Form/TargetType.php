@@ -30,13 +30,10 @@ class TargetType extends AbstractType
             ->add('lastname', TextType::class, [
                 'label' => 'Nom'
             ])
-            // ->add('dateOfBirth', DateType::class)
             ->add('dateOfBirth', DateType::class, [
                 'widget' => 'single_text',
                 'label' => 'Date de naissance',
                 'input'  => 'datetime_immutable',
-                // 'format' => 'yyy-MM-dd'
-
             ])
             ->add('code', TextType::class, [
                 'label' => 'Nom de code'

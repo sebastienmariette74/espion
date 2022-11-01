@@ -4,7 +4,7 @@ namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -28,9 +28,9 @@ class AdminType extends AbstractType
         ->add('lastName', TextType::class, [
             'label' => 'Nom'
         ])
-        ->add('created_at', DateTimeType::class, [
+        ->add('created_at', DateType::class, [
             'label' => 'Date de création',
-            'widget' => 'choice',
+            'widget' => 'single_text',
             'input'  => 'datetime_immutable'
         ])
         ;
