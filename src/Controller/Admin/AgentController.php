@@ -3,7 +3,6 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Agent;
-use App\Entity\Speciality;
 use App\Form\AgentType;
 use App\Repository\AgentRepository;
 use App\Repository\SpecialityRepository;
@@ -21,7 +20,6 @@ class AgentController extends AbstractController
     {
         $agents = $agentRepo->findAll();
         $specialities = $specialityRepo->findAll();
-        // dd($agents[0]->getNationality());
 
         return $this->render('agent/index.html.twig', compact('agents', 'specialities'));
     }
@@ -49,7 +47,6 @@ class AgentController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // dd($agent);
             $em->persist($agent);
             $em->flush();
 

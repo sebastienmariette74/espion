@@ -3,7 +3,6 @@
 namespace App\Controller\Admin;
 
 use App\Entity\HidingPlace;
-use App\Entity\Speciality;
 use App\Form\HidingPlaceType;
 use App\Repository\HidingPlaceRepository;
 use App\Repository\MissionRepository;
@@ -22,7 +21,6 @@ class HidingPlaceController extends AbstractController
     {
         $hidingPlaces = $hidingPlaceRepo->findAll();
         $missions = $missionRepo->findAll();
-        // dd($hidingPlaces);
 
         return $this->render('hidingPlace/index.html.twig', compact('hidingPlaces', 'missions'));
     }
@@ -44,16 +42,12 @@ class HidingPlaceController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
-            // $hidingPlace->setCountry($form->get('country')->getData());
-            // dd($hidingPlace->getCountry());
             
             $em->persist($hidingPlace);
             $em->flush();
 
             $this->addFlash('success', "Planque ajoutée.");
-
-            // return $this->redirectToRoute('admin');
+            
             return $this->redirectToRoute('admin_hidingPlaces');
         }
 

@@ -3,7 +3,6 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Target;
-use App\Entity\Speciality;
 use App\Form\TargetType;
 use App\Repository\TargetRepository;
 use App\Repository\SpecialityRepository;
@@ -38,33 +37,7 @@ class TargetController extends AbstractController
 
     #[Route('/creation-target', name: '_create')]
     public function createTarget(EntityManagerInterface $em, Request $request): Response
-    {
-        
-        // if($request->get('ajax')){
-        //     $target = new Target();
-        //     dump('ajax=1');
-        //     $form = $this->createForm(TargetType::class, $target);
-        // // dd($form->getData());
-        // // $form->remove('dateOfBirth');
-        // $form->handleRequest($request);
-
-        // // dd($target);
-
-        // if ($form->isSubmitted() && $form->isValid()) {
-        //     // dump($target);
-        //     dd('request2');
-
-        //     $em->persist($target);
-        //     $em->flush();
-
-        //     $this->addFlash('success', "Target ajouté.");
-
-        //     // return $this->redirectToRoute('admin_targets');
-        // }
-
-        // return $this->renderForm('target/_content.html.twig', compact('form'));
-        // }
-
+    {       
         $target = new Target();
         $form = $this->createForm(TargetType::class, $target);
         $form->handleRequest($request);

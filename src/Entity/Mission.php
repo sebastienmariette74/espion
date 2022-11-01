@@ -294,10 +294,6 @@ class Mission
     public static function loadValidatorMetadata(ClassMetadata $metadata)
     {
         $metadata->addConstraint(new Assert\Callback('validate'));
-        // $metadata->addPropertyConstraint('codeName', new Assert\NotBlank([
-        //     'message' => 'Remplir'
-        // ]));
-
     }
 
     public function validate(ExecutionContextInterface $context, $payload)
@@ -308,7 +304,6 @@ class Mission
             $targets = $this->getTarget();
             $tab = [];
             foreach ($targets as $target) {
-                // dd($agent);
                 $target = $target->getCountry()->getName();
                     $tab[] = $target;
             }
@@ -334,19 +329,16 @@ class Mission
             
             $tab = [];
             foreach ($agents as $agent) {
-                // dd($agent);
                 $specialities = $agent->getSpeciality();
                 foreach ($specialities as $speciality) {
                     $specialityName = $speciality->getName();
                     $tab[] = $specialityName;
                 }
             }
-            // dump($tab);
 
             $country = $this->getCountry()->getName();
             
             $speciality = $this->getSpeciality()->getName();
-            // dump($tab, $speciality, $country);
 
             if (!in_array($speciality, $tab)) {
 

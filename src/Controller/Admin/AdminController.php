@@ -4,12 +4,9 @@ namespace App\Controller\Admin;
 
 use App\Entity\User;
 use App\Form\AdminType;
-use App\Form\UserType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -62,11 +59,6 @@ class AdminController extends AbstractController
     {
         $form = $this->createForm(AdminType::class, $user);
         $form->handleRequest($request);
-        // $data = $form->get('password')->getData();
-        // $form->add('password', PasswordType::class, [
-        //     'label' => 'Entrer le mot de passe actuel ou un nouveau'
-        // ]);
-        // dump($data);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $user->setPassword(

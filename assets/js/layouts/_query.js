@@ -8,12 +8,14 @@ $(".js-query").on("keyup", function () {
   let type = $("#filter-type option:selected").val();
   let status = $("#filter-status option:selected").val();
   let query = $(".js-query").val();
+  let offset = $("#offset").val();
 
   let filters = {
     "speciality" : speciality,
     "type" : type,
     "status" : status, 
-    "query" : query
+    "query" : query,
+    "offset" : offset
   };
 
   let params = new URLSearchParams();
@@ -46,18 +48,18 @@ $(".js-query").on("keyup", function () {
 
 /* _____________________FILTRES_____________________________*/
 $(".content").on("change", ".filter", function () {
-  // let page = $(".search input:hidden").attr("value");
-  // console.log(page);
   let speciality = $("#filter-speciality option:selected").val();
   let type = $("#filter-type option:selected").val();
   let status = $("#filter-status option:selected").val();
   let query = $(".js-query").val();
+  let offset = $("#offset").val();
 
   let filters = {
     "speciality" : speciality,
     "type" : type,
     "status" : status, 
-    "query" : query
+    "query" : query,
+    "offset" : offset
   };
 
   let params = new URLSearchParams();

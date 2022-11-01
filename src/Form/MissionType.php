@@ -50,7 +50,6 @@ class MissionType extends AbstractType
             ])
             ->add('codeName', TextType::class, [
                 'label' => 'Code',
-                // 'required' => true,
                 'constraints' => new NotBlank(['message' => 'Veuillez entrer un nom de code.']),
             ])
             ->add('begin_at', DateType::class, [

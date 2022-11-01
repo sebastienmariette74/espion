@@ -55,9 +55,6 @@ class AgentType extends AbstractType
                 },
                 'choice_label' => 'name'
             ])
-            // ->add('missions', CollectionType::class, [
-            //     'label' => 'Prénom'
-            // ])
         ;
     }
 

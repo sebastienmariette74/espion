@@ -19,11 +19,6 @@ class AdminType extends AbstractType
         ->add('email', EmailType::class, [
             'label' => 'Email'
         ])
-        // ->add('roles')
-        // ->add('password')
-        // ->add('plainPassword', TextType::class, [
-        //     'mapped' => false,
-        // ])
         ->add('password', PasswordType::class, [
             'label' => 'Entrer le mot de passe actuel ou un nouveau'
         ])

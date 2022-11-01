@@ -34,14 +34,14 @@ class MissionController extends AbstractController
         $allStatus = $statusMissionRepo->findBy([], ['name' => 'ASC']);
 
         if (!$request->get('ajax')) {
-
-            $paginate = $pagination->pagination($request, $missionRepo, 3, "getPaginated", null, null, "getTotal");
+            $offset = 9;
+            $paginate = $pagination->pagination($request, $missionRepo, $offset, "getPaginated", null, null, "getTotal");
             $missions = $paginate['missions'];
             $total = $paginate['total'];
             $limit = $paginate['limit'];
             $page = $paginate['page'];
 
-            return $this->render('mission/index.html.twig', compact('missions', 'total', 'limit', 'page', 'specialities', 'types', 'allStatus'));
+            return $this->render('mission/index.html.twig', compact('missions', 'total', 'limit', 'page', 'specialities', 'types', 'allStatus', 'offset'));
         } else {            
 
             // tableau de tous les filtres
@@ -50,19 +50,20 @@ class MissionController extends AbstractController
             $speciality = htmlentities($request->get("speciality"));
             $type = htmlentities($request->get("type"));
             $status = htmlentities($request->get("status"));
+            $offset = (int)(htmlentities($request->get("offset")));
 
             $speciality != "" ? $filters['speciality'] = $speciality : "";
             $type != "" ? $filters['type'] = $type : "";
             $status != "" ? $filters['status'] = $status : "";
             
             // pagination
-            $paginate = $pagination->pagination($request, $missionRepo, 3, "getPaginated", $filters, $query, "getTotal");
+            $paginate = $pagination->pagination($request, $missionRepo, $offset, "getPaginated", $filters, $query, "getTotal");
             $missions = $paginate['missions'];
             $total = $paginate['total'];
             $limit = $paginate['limit'];
             $page = $paginate['page'];
 
-            return $this->render('mission/_content.html.twig', compact('missions', 'total', 'limit', 'page', 'specialities', 'types', 'allStatus'));
+            return $this->render('mission/_content.html.twig', compact('missions', 'total', 'limit', 'page', 'specialities', 'types', 'allStatus', 'offset'));
         }
 
     }
@@ -83,7 +84,6 @@ class MissionController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // dd($form->get('codeName'));
 
             $em->persist($mission);
             $em->flush();

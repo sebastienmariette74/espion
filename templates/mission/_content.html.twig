@@ -1,7 +1,12 @@
 {% set paramspeciality = app.request.get('speciality') %}
 {% set paramtype = app.request.get('type') %}
 {% set paramstatus = app.request.get('status') %}
-
+<div class="mb-3 d-flex justify-content-center offset">
+    <span class="me-3">
+        Nombre de missions par page :
+    </span>
+    <input type="number" name="number" id="offset" class="filter form-control" value="{{ offset }}"  min="1" max="11">  
+</div>
 <div class="table-responsive">
     <table class="table table-mission ">
         <thead>
