@@ -58,7 +58,7 @@
         <td class="height-li">
           <ul>
           {% for hidingPlace in mission.hidingPlace %}        
-          <li data-firsturl = "hidingPlaces" data-secondurl = "hidingPlace">{{ hidingPlace.code }}</li>
+          <li data-firsturl = "hidingPlace" >{{ hidingPlace.code }}</li>
           {% endfor %}
           </ul>
         </td>
@@ -68,7 +68,7 @@
         <td>
           <ul>
           {% for agent in mission.agent %}        
-          <li data-firsturl = "agents" data-secondurl = "agent">{{ agent.code }}</li>
+          <li data-firsturl = "agent">{{ agent.code }}</li>
           {% endfor %}
           </ul>
         </td>
@@ -78,7 +78,7 @@
         <td>
           <ul>
           {% for target in mission.target %}        
-          <li data-firsturl = "targets" data-secondurl = "target">{{ target.code }}</li>
+          <li data-firsturl = "target">{{ target.code }}</li>
           {% endfor %}
           </ul>
         </td>

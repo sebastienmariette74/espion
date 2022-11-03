@@ -96,76 +96,76 @@ target.on("change", function () {
 
 // Fonctionnalité marchant très bien en DEV en non en PROD
 /* affichage d'une info-bulle au passage de la souris sur un élément de la liste des planques */
-// $(".form-create").on("mouseover", "#mission_hidingPlace option", function () {
-//   let code = $(this).text();
-//   if (code.indexOf("(") != -1) {
-//     code = code.split("(")[0];
-//   }
-//   let url = new URL(window.location);
-//   axios
-//     .get(url.origin + "/admin/hidingPlaces/hidingPlace/" + code)
-//     .then((response) => {
-//       if ($(".details").length < 1) {
-//         $("<div class='details'></div>").prependTo($(".hidingPlace"));
-//         $(`.details`).html(response.data);
-//         let heightDetails = $(".details").height();
-//         let top = "-" + heightDetails + "px";
-//         $(`.details`).css("top", top);
-//       }
-//     })
-//     .catch((error) => {
-//       // '${.content}'.html = `Erreur: ${error.message}`;
-//       // '${.content}'.parent().html = `Erreur: ${error.message}`;
-//       console.error("Il y a une erreur dans la requête", error);
-//     });
-// });
+$(".form-create").on("mouseover", "#mission_hidingPlace option", function () {
+  let code = $(this).text();
+  if (code.indexOf("(") != -1) {
+    code = code.split("(")[0];
+  }
+  let url = new URL(window.location);
+  axios
+    .get(url.origin + "/admin/hidingPlaces/hidingPlace/" + code)
+    .then((response) => {
+      if ($(".details").length < 1) {
+        $("<div class='details'></div>").prependTo($(".hidingPlace"));
+        $(`.details`).html(response.data);
+        let heightDetails = $(".details").height();
+        let top = "-" + heightDetails + "px";
+        $(`.details`).css("top", top);
+      }
+    })
+    .catch((error) => {
+      // '${.content}'.html = `Erreur: ${error.message}`;
+      // '${.content}'.parent().html = `Erreur: ${error.message}`;
+      console.error("Il y a une erreur dans la requête", error);
+    });
+});
 
-// /* fermeture de l'infobulle */
-// $(".form-create").on("mouseout", "#mission_hidingPlace option", function () {
+/* fermeture de l'infobulle */
+$(".form-create").on("mouseout", "#mission_hidingPlace option", function () {
+  $(".details").remove();
+}
+
+$(".form-create").on("mouseout", ".details", function () {
+  $(".details").remove();
+}
+
+// $('body').on("mousemove", function(){
 //   $(".details").remove();
-// }
+// })
 
-// $(".details").on("mouseout", "#mission_hidingPlace option", function () {
-//   $(".details").remove();
-// }
+/* affichage d'une info-bulle au passage de la souris sur un élément de la liste des planques */
+$(".form-edit").on("mouseover", "#mission_agent option", function () {
+  let code = $(this).text();
+  if (code.indexOf(" =") != -1) {
+    code = code.split(" =")[0];  }
+  let url = new URL(window.location);
+  axios
+    .get(url.origin + "/admin/agents/agent/" + code)
+    .then((response) => {
+      if ($(".details").length < 1) {
+        $("<div class='details'></div>").prependTo($(".hidingPlace"));
+        // $(".details").css("display", "block");
+        $(".details").html(response.data);
+        let heightDetails = $(".details").height();
+        let top = "-" + heightDetails + "px";
+        $(".details").css("top", top);
+      }
+    })
+    .catch((error) => {
+      // '${.content}'.html = `Erreur: ${error.message}`;
+      // '${.content}'.parent().html = `Erreur: ${error.message}`;
+      console.error("Il y a une erreur dans la requête", error);
+    });
+});
 
-// // $('body').on("mousemove", function(){
-// //   $(".details").remove();
-// // })
+/* fermeture de l'infobulle */
+$(".form-edit").on("mouseout", "#mission_agent option", function () {
+  $(".details").remove();
+}
 
-// /* affichage d'une info-bulle au passage de la souris sur un élément de la liste des planques */
-// $(".form-edit").on("mouseover", "#mission_agent option", function () {
-//   let code = $(this).text();
-//   if (code.indexOf(" =") != -1) {
-//     code = code.split(" =")[0];  }
-//   let url = new URL(window.location);
-//   axios
-//     .get(url.origin + "/admin/agents/agent/" + code)
-//     .then((response) => {
-//       if ($(".details").length < 1) {
-//         $("<div class='details'></div>").prependTo($(".hidingPlace"));
-//         // $(".details").css("display", "block");
-//         $(".details").html(response.data);
-//         let heightDetails = $(".details").height();
-//         let top = "-" + heightDetails + "px";
-//         $(".details").css("top", top);
-//       }
-//     })
-//     .catch((error) => {
-//       // '${.content}'.html = `Erreur: ${error.message}`;
-//       // '${.content}'.parent().html = `Erreur: ${error.message}`;
-//       console.error("Il y a une erreur dans la requête", error);
-//     });
-// });
-
-// /* fermeture de l'infobulle */
-// $(".form-edit").on("mouseout", "#mission_agent option", function () {
-//   $(".details").remove();
-// }
-
-// $(".details").on("mouseout", "#mission_agent option", function () {
-//   $(".details").remove();
-// }
+$(".form-edit").on("mouseout", ".details", function () {
+  $(".details").remove();
+}
 
 // // $('body').on("mousemove", function(){
 // //   $(".details").remove();

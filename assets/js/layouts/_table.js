@@ -4,10 +4,9 @@ const $ = require('jquery');
 $('.table-show').on('mouseover', 'li', function(event){
         let code = $(this).text();
         firstUrl = $(this).data('firsturl')
-        secondUrl = $(this).data('secondurl')
         let url = new URL(window.location);
         axios
-        .get(url.origin + '/admin/' + firstUrl + '/' + secondUrl + '/' + code)
+        .get(url.origin + '/' + firstUrl + '/' + code)
         .then((response) => {
             if ($('.details').length < 1){
                 $("<div class='details'></div>").insertBefore($(this).parent("ul"));
