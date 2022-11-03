@@ -49,23 +49,24 @@
     }
 }
 
-.table-show {
-    li{
-        text-decoration: underline;
-        color : #0D6EFD;
-        cursor : pointer;
-    }
-    li:hover{
-        color : #2d5188;
-    }
-}
+// le JS associé ne fonctionne pas en PROD
+// .table-show {
+//     li{
+//         text-decoration: underline;
+//         color : #0D6EFD;
+//         cursor : pointer;
+//     }
+//     li:hover{
+//         color : #2d5188;
+//     }
+// }
 
-.table-details {
-    li{
-        text-decoration: none;
-        color : black;
-    }
-}
+// .table-details {
+//     li{
+//         text-decoration: none;
+//         color : black;
+//     }
+// }
 
 @media screen and (min-width : 768px){
     .table {

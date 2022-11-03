@@ -19,15 +19,16 @@ form {
     width: 60px;
 }
 
-.form-create #mission_hidingPlace option {    
-    text-decoration: underline;
-    color : #0D6EFD;
-    cursor: pointer;
-}
+// le jquery associé ne fonctionne pas en PROD
+// .form-create #mission_hidingPlace option {    
+//     text-decoration: underline;
+//     color : #0D6EFD;
+//     cursor: pointer;
+// }
 
-.form-edit #mission_agent option {    
-    text-decoration: underline;
-    color : #0D6EFD;
-    cursor: pointer;
-}
+// .form-edit #mission_agent option {    
+//     text-decoration: underline;
+//     color : #0D6EFD;
+//     cursor: pointer;
+// }
 
