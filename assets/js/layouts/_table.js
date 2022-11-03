@@ -3,7 +3,7 @@ const $ = require('jquery');
 /* ouverture d'une infobulle au passage de la souris sur les éléments d'une liste */
 $('.table-show').on('mouseover', 'li', function(event){
         let code = $(this).text();
-        firstUrl = $(this).data('firsturl');
+        let firstUrl = $(this).data('firsturl');
         let url = new URL(window.location);
         axios
         .get(url.origin + '/' + firstUrl + '/' + code)
