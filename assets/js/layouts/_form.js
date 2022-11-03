@@ -67,7 +67,6 @@ country.on("change", function () {
   });
 });
 
-// let date2 = $("#mission_begin_at");
 /* AJAX - modification du champ agent après avoir choisi une ou plusieurs cibles */
 target.on("change", function () {
   let codeNameVal = $("#mission_codeName").val();
@@ -94,7 +93,6 @@ target.on("change", function () {
   });
 });
 
-// Fonctionnalité marchant très bien en DEV en non en PROD
 /* affichage d'une info-bulle au passage de la souris sur un élément de la liste des planques */
 $(".form-create").on("mouseover", "#mission_hidingPlace option", function () {
   let code = $(this).text();
@@ -114,8 +112,7 @@ $(".form-create").on("mouseover", "#mission_hidingPlace option", function () {
       }
     })
     .catch((error) => {
-      // '${.content}'.html = `Erreur: ${error.message}`;
-      // '${.content}'.parent().html = `Erreur: ${error.message}`;
+      '${.content}'.parent().html = `Erreur: ${error.message}`;
       console.error("Il y a une erreur dans la requête", error);
     });
 });
@@ -128,10 +125,6 @@ $(".form-create").on("mouseout", "#mission_hidingPlace option", function () {
 $(".form-create").on("mouseout", ".details", function () {
   $(".details").remove();
 })
-
-// $('body').on("mousemove", function(){
-//   $(".details").remove();
-// })
 
 /* affichage d'une info-bulle au passage de la souris sur un élément de la liste des planques */
 $(".form-edit").on("mouseover", "#mission_agent option", function () {
@@ -152,8 +145,7 @@ $(".form-edit").on("mouseover", "#mission_agent option", function () {
       }
     })
     .catch((error) => {
-      // '${.content}'.html = `Erreur: ${error.message}`;
-      // '${.content}'.parent().html = `Erreur: ${error.message}`;
+      '${.content}'.parent().html = `Erreur: ${error.message}`;
       console.error("Il y a une erreur dans la requête", error);
     });
 });
@@ -166,7 +158,3 @@ $(".form-edit").on("mouseout", "#mission_agent option", function () {
 $(".form-edit").on("mouseout", ".details", function () {
   $(".details").remove();
 })
-
-// // $('body').on("mousemove", function(){
-// //   $(".details").remove();
-// // })
