@@ -3,10 +3,11 @@ const $ = require('jquery');
 /* ouverture d'une infobulle au passage de la souris sur les éléments d'une liste */
 $('.table-show').on('mouseover', 'li', function(event){
         let code = $(this).text();
-        let firstUrl = $(this).data('firsturl');
+        firstUrl = $(this).data('firsturl')
+        secondUrl = $(this).data('secondurl')
         let url = new URL(window.location);
         axios
-        .get(url.origin + '/' + firstUrl + '/' + code)
+        .get(url.origin + '/admin/' + firstUrl + '/' + secondUrl + '/' + code)
         .then((response) => {
             if ($('.details').length < 1){
                 $("<div class='details'></div>").insertBefore($(this).parent("ul"));

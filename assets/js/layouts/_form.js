@@ -123,11 +123,11 @@ $(".form-create").on("mouseover", "#mission_hidingPlace option", function () {
 /* fermeture de l'infobulle */
 $(".form-create").on("mouseout", "#mission_hidingPlace option", function () {
   $(".details").remove();
-}
+})
 
 $(".form-create").on("mouseout", ".details", function () {
   $(".details").remove();
-}
+})
 
 // $('body').on("mousemove", function(){
 //   $(".details").remove();
@@ -161,11 +161,11 @@ $(".form-edit").on("mouseover", "#mission_agent option", function () {
 /* fermeture de l'infobulle */
 $(".form-edit").on("mouseout", "#mission_agent option", function () {
   $(".details").remove();
-}
+})
 
 $(".form-edit").on("mouseout", ".details", function () {
   $(".details").remove();
-}
+})
 
 // // $('body').on("mousemove", function(){
 // //   $(".details").remove();
