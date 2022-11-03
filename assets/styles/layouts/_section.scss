@@ -19,10 +19,18 @@ section {
     // margin: auto;
 }
 
+.login {
+    width : auto
+}
+
 @media screen and (min-width: 930px){
     section {
         position: absolute;
         left: 300px;
         width: calc(100% - 300px);
+    }
+
+    .login {
+        max-width : 400px
     }
 }
