@@ -204,7 +204,6 @@ class MissionType extends AbstractType
             FormEvents::POST_SUBMIT,
             function (FormEvent $event) {
                 $data = $event->getForm()->getData();
-                dump($data);
                 $form = $event->getForm()->getParent();
                 $hidingPlaces = null === $data ? [] : $data->getHidingPlaces();
                 $contacts = null === $data ? [] : $data->getContacts();
@@ -240,13 +239,11 @@ class MissionType extends AbstractType
         );
 
 
-
         $builder->get('target')->addEventListener(
             FormEvents::POST_SUBMIT,
             function (FormEvent $event) {
                 $data = $event->getForm()->getData();
                 $form = $event->getForm()->getParent();
-                dump($data);
                 $countries = [];
                 foreach ($data as $x) {
                     $countries[] = $x->getCountry()->getName();

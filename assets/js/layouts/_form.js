@@ -120,9 +120,17 @@ $(".form-create").on("mouseover", "#mission_hidingPlace option", function () {
 });
 
 /* fermeture de l'infobulle */
-$('body').on("mousemove", function(){
+$(".form-create").on("mouseout", "#mission_hidingPlace option", function () {
   $(".details").remove();
-})
+}
+
+$(".details").on("mouseout", "#mission_hidingPlace option", function () {
+  $(".details").remove();
+}
+
+// $('body').on("mousemove", function(){
+//   $(".details").remove();
+// })
 
 /* affichage d'une info-bulle au passage de la souris sur un élément de la liste des planques */
 $(".form-edit").on("mouseover", "#mission_agent option", function () {
@@ -150,6 +158,14 @@ $(".form-edit").on("mouseover", "#mission_agent option", function () {
 });
 
 /* fermeture de l'infobulle */
-$('body').on("mousemove", function(){
+$(".form-edit").on("mouseout", "#mission_agent option", function () {
   $(".details").remove();
-})
+}
+
+$(".details").on("mouseout", "#mission_agent option", function () {
+  $(".details").remove();
+}
+
+// $('body').on("mousemove", function(){
+//   $(".details").remove();
+// })
