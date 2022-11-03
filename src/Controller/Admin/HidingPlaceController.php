@@ -26,9 +26,8 @@ class HidingPlaceController extends AbstractController
     }
 
     #[Route('/hidingPlace/{code}', name: '_show')]
-    public function show(HidingPlace $hidingPlace, HidingPlaceRepository $hidingPlaceRepo, SpecialityRepository $specialityRepo, MissionRepository $missionRepo): Response
-    {
-               
+    public function show(HidingPlace $hidingPlace): Response
+    {               
 
         return $this->render('hidingPlace/show.html.twig', compact('hidingPlace'));
     }

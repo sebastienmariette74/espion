@@ -1,6 +1,9 @@
 .hidingPlace {
     position: relative;
 }
+.agent {
+    position: relative;
+}
 .details {    
     display: block;
     position: absolute;
@@ -10,7 +13,7 @@
     height: auto;
     max-width: 400px;
     border-radius: 6px;
-    z-index: 2;
+    z-index: 1000;
     -webkit-border-radius: 6px;
     -moz-border-radius: 6px;
     -ms-border-radius: 6px;

@@ -2,11 +2,11 @@
 {% set paramtype = app.request.get('type') %}
 {% set paramstatus = app.request.get('status') %}
 
-<div class="mb-3 d-flex justify-content-center offset">
+<div class="mb-3 d-flex justify-content-center limit">
     <span class="me-3">
         Nombre d'agents par page :
     </span>
-    <input type="number" name="number" id="offset" class="filter form-control" value="{{ offset }}"  min="1" max="11">  
+    <input type="number" name="number" id="limit" class="filter form-control" value="{{ limit }}"  min="1" max="11">  
 </div>
 <table class="table">
     <thead>

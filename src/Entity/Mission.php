@@ -302,24 +302,23 @@ class Mission
         if ($this->getTarget() ){
             
             $targets = $this->getTarget();
-            $tab = [];
+            $countriesTarget = [];
             foreach ($targets as $target) {
-                $target = $target->getCountry()->getName();
-                    $tab[] = $target;
+                $country = $target->getCountry()->getName();
+                    $countriesTarget[] = $country;
             }
-            $speciality = $tab != null ? $tab[0] : "";
-
             $agents = $this->getAgent();
-            $countries = [];
+            $countriesAgent = [];
             foreach ($agents as $agent) {
                 $country = $agent->getCountry()->getName();
-                $countries[] = $country;
+                $countriesAgent[] = $country;
             }
-
-            if (in_array($speciality, $countries)) {
-            $context->buildViolation('Les agents ne peuvent pas avoir la même nationalité que les cibles.')
-                ->atPath('agent')
-                ->addViolation();
+            foreach ($countriesTarget as $countriyTarget) {
+                if (in_array($countriyTarget, $countriesAgent)) {
+                    $context->buildViolation('Les agents ne peuvent pas avoir la même nationalité que les cibles.')
+                        ->atPath('agent')
+                        ->addViolation();
+                }            
             }
         }
 

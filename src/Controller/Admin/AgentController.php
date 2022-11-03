@@ -28,32 +28,28 @@ class AgentController extends AbstractController
         PaginationService $pagination
     ): Response
     {
-        $agents = $agentRepo->findAll();
-
         if (!$request->get('ajax')) {
-            $offset = 9;
-            $paginate = $pagination->pagination($request, $agentRepo, $offset, "getPaginated", null, null, "getTotal");
+            $limit = 9;
+            $paginate = $pagination->pagination($request, $agentRepo, $limit, "getPaginated", null, null, "getTotal");
             $agents = $paginate['response'];
             $total = $paginate['total'];
-            $limit = $paginate['limit'];
             $page = $paginate['page'];
 
-            return $this->render('agent/index.html.twig', compact('agents', 'total', 'limit', 'page', 'offset'));
+            return $this->render('agent/index.html.twig', compact('agents', 'total', 'limit', 'page'));
         } else {
 
             // tableau de tous les filtres
             $filters = [];
             $query = htmlentities($request->get("query"));
-            $offset = (int)(htmlentities($request->get("offset")));
+            $limit = (int)(htmlentities($request->get("limit")));
 
             // pagination
-            $paginate = $pagination->pagination($request, $agentRepo, $offset, "getPaginated", $filters, $query, "getTotal");
+            $paginate = $pagination->pagination($request, $agentRepo, $limit, "getPaginated", $filters, $query, "getTotal");
             $agents = $paginate['response'];
             $total = $paginate['total'];
-            $limit = $paginate['limit'];
             $page = $paginate['page'];
 
-            return $this->render('agent/_content.html.twig', compact('agents', 'total', 'limit', 'page', 'offset'));
+            return $this->render('agent/_content.html.twig', compact('agents', 'total', 'limit', 'page'));
         }
     }
 

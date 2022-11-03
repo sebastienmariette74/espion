@@ -8,14 +8,14 @@ $(".js-query").on("keyup", function () {
   let type = $("#filter-type option:selected").val() ?? "";
   let status = $("#filter-status option:selected").val() ?? "";
   let query = $(".js-query").val() ?? "";
-  let offset = $("#offset").val();
+  let limit = $("#limit").val();
 
   let filters = {
     "speciality" : speciality,
     "type" : type,
     "status" : status, 
     "query" : query,
-    "offset" : offset
+    "limit" : limit
   };
 
   let params = new URLSearchParams();
@@ -30,8 +30,7 @@ $(".js-query").on("keyup", function () {
       $(`.content`).html(response.data);
     })
     .catch((error) => {
-      // '${.content}'.html = `Erreur: ${error.message}`;
-      // '${.content}'.parent().html = `Erreur: ${error.message}`;
+      '${.content}'.parent().html = `Erreur: ${error.message}`;
       console.error("Il y a une erreur dans la requête", error);
     });
 
@@ -52,14 +51,14 @@ $(".content").on("change", ".filter", function () {
   let type = $("#filter-type option:selected").val() ?? "";
   let status = $("#filter-status option:selected").val() ?? "";
   let query = $(".js-query").val() ?? "";
-  let offset = $("#offset").val();
+  let limit = $("#limit").val();
 
   let filters = {
     "speciality" : speciality,
     "type" : type,
     "status" : status, 
     "query" : query,
-    "offset" : offset
+    "limit" : limit
   };
 
   let params = new URLSearchParams();
@@ -74,8 +73,7 @@ $(".content").on("change", ".filter", function () {
       $(`.content`).html(response.data);
     })
     .catch((error) => {
-      // '${.content}'.html = `Erreur: ${error.message}`;
-      // '${.content}'.parent().html = `Erreur: ${error.message}`;
+      '${.content}'.parent().html = `Erreur: ${error.message}`;
       console.error("Il y a une erreur dans la requête", error);
     });
 

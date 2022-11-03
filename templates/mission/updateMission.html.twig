@@ -5,36 +5,38 @@
 {% block body %}
 
 <h1 class="mb-3">Modifier la mission</h1>
-{{ form_start(form) }}
-<div class="row">
-    <div class="col-sm-12 col-md-3">
-        <div class="row">
-            <div class="col-sm-6 col-md-12">{{ form_row(form.codeName) }}</div>
-            <div class="col-sm-6 col-md-12">{{ form_row(form.title) }}</div>
-            <div class="col-sm-6 col-md-12">{{ form_row(form.begin_at) }}</div>
-            <div class="col-sm-6 col-md-12">{{ form_row(form.finish_at) }}</div>
-            <div class="col-sm-6 col-md-12 mb-3">{{ form_widget(form.country) }}</div>
-            <div class="col-sm-6 col-md-12 mb-3">{{ form_widget(form.speciality) }}{{ form_help(form.speciality) }}</div>
-            <div class="col-sm-6 col-md-12 mb-3">{{ form_widget(form.type) }}</div>
-            <div class="col-sm-6 col-md-12 ">{{ form_widget(form.status) }}</div>
+<div class="form-edit">
+    {{ form_start(form) }}
+    <div class="row">
+        <div class="col-sm-12 col-md-3">
+            <div class="row">
+                <div class="col-sm-6 col-md-12">{{ form_row(form.codeName) }}</div>
+                <div class="col-sm-6 col-md-12">{{ form_row(form.title) }}</div>
+                <div class="col-sm-6 col-md-12">{{ form_row(form.begin_at) }}</div>
+                <div class="col-sm-6 col-md-12">{{ form_row(form.finish_at) }}</div>
+                <div class="col-sm-6 col-md-12 mb-3">{{ form_widget(form.country) }}</div>
+                <div class="col-sm-6 col-md-12 mb-3">{{ form_widget(form.speciality) }}{{ form_help(form.speciality) }}</div>
+                <div class="col-sm-6 col-md-12 mb-3">{{ form_widget(form.type) }}</div>
+                <div class="col-sm-6 col-md-12 ">{{ form_widget(form.status) }}</div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-9">
+            <div class="row">
+                <div class="col-12">{{ form_label(form.description) }}{{ form_widget(form.description) }}</div>
+                <div class="col-sm-6">{{ form_row(form.target) }}</div>
+                <div class="col-sm-6 ">{{ form_row(form.hidingPlace) }}</div>
+                <div class="col-sm-6 hidingPlace">{{ form_row(form.agent) }}</div>
+                <div class="col-sm-6 ">{{ form_row(form.contact) }}</div>
+            </div>
+        </div>
+    
+        <div class="my-3 d-flex justify-content-end">
+            <button type="submit" class="btn btn-sm btn-warning me-3">MODIFIER</button>
+            <a href="{{ path('admin_missions')}}" class="btn btn-sm btn-danger">ANNULER</a>
         </div>
     </div>
-    <div class="col-sm-12 col-md-9">
-        <div class="row">
-            <div class="col-12">{{ form_label(form.description) }}{{ form_widget(form.description) }}</div>
-            <div class="col-sm-6">{{ form_row(form.target) }}</div>
-            <div class="col-sm-6 hidingPlace">{{ form_row(form.hidingPlace) }}</div>
-            <div class="col-sm-6 agent">{{ form_row(form.agent) }}</div>
-            <div class="col-sm-6 contact">{{ form_row(form.contact) }}</div>
-        </div>
-    </div>
-
-    <div class="my-3 d-flex justify-content-end">
-        <button type="submit" class="btn btn-sm btn-warning me-3">MODIFIER</button>
-        <a href="{{ path('admin_missions')}}" class="btn btn-sm btn-danger">ANNULER</a>
-    </div>
+    {{ form_end(form) }}
 </div>
 
-    {{ form_end(form) }}
 
     {% endblock %}

@@ -34,14 +34,13 @@ class MissionController extends AbstractController
         $allStatus = $statusMissionRepo->findBy([], ['name' => 'ASC']);
 
         if (!$request->get('ajax')) {
-            $offset = 9;
-            $paginate = $pagination->pagination($request, $missionRepo, $offset, "getPaginated", null, null, "getTotal");
+            $limit = 9;
+            $paginate = $pagination->pagination($request, $missionRepo, $limit, "getPaginated", null, null, "getTotal");
             $missions = $paginate['response'];
             $total = $paginate['total'];
-            $limit = $paginate['limit'];
             $page = $paginate['page'];
 
-            return $this->render('mission/index.html.twig', compact('missions', 'total', 'limit', 'page', 'specialities', 'types', 'allStatus', 'offset'));
+            return $this->render('mission/index.html.twig', compact('missions', 'total', 'limit', 'page', 'specialities', 'types', 'allStatus'));
         } else {            
 
             // tableau de tous les filtres
@@ -50,20 +49,19 @@ class MissionController extends AbstractController
             $speciality = htmlentities($request->get("speciality"));
             $type = htmlentities($request->get("type"));
             $status = htmlentities($request->get("status"));
-            $offset = (int)(htmlentities($request->get("offset")));
+            $limit = (int)(htmlentities($request->get("limit")));
 
             $speciality != "" ? $filters['speciality'] = $speciality : "";
             $type != "" ? $filters['type'] = $type : "";
             $status != "" ? $filters['status'] = $status : "";
             
             // pagination
-            $paginate = $pagination->pagination($request, $missionRepo, $offset, "getPaginated", $filters, $query, "getTotal");
+            $paginate = $pagination->pagination($request, $missionRepo, $limit, "getPaginated", $filters, $query, "getTotal");
             $missions = $paginate['response'];
             $total = $paginate['total'];
-            $limit = $paginate['limit'];
             $page = $paginate['page'];
 
-            return $this->render('mission/_content.html.twig', compact('missions', 'total', 'limit', 'page', 'specialities', 'types', 'allStatus', 'offset'));
+            return $this->render('mission/_content.html.twig', compact('missions', 'total', 'limit', 'page', 'specialities', 'types', 'allStatus'));
         }
 
     }
@@ -82,6 +80,7 @@ class MissionController extends AbstractController
 
         $form = $this->createForm(MissionType::class, $mission);
         $form->handleRequest($request);
+
 
         if ($form->isSubmitted() && $form->isValid()) {
 
@@ -110,16 +109,21 @@ class MissionController extends AbstractController
     #[Route('/modifier-mission/{id<\d+>}', name: '_update')]
     public function updateMission(EntityManagerInterface $em, Mission $mission, Request $request): Response
     {
+        if($request->get('ajax') == 1){
+            $codename = $request->get('mission')->getCodeName();
+            $mission->setCodeName($request->get('codeName'));
+            $mission->setTitle($request->get('title'));
+            $mission->setDescription($request->get('description'));
+        }
         $form = $this->createForm(MissionType::class, $mission);
         $form->handleRequest($request);
-
+        
         if ($form->isSubmitted() && $form->isValid()) {
 
             $em->persist($mission);
             $em->flush();
 
             $this->addFlash('success', "Mission modifiée.");
-
             return $this->redirectToRoute('admin_missions');
         }
 

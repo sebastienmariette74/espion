@@ -3,7 +3,7 @@ const $ = require("jquery");
 function updateParams(filters, params) {
   $.each(filters, function (key, value) {
     if (value === "") {
-      let doNothing;
+      // ne rien faire
     } else if (params.get(key)) {
       params.set(key, value);
     } else {
@@ -15,7 +15,7 @@ function updateParams(filters, params) {
 function updateNewParams(filters, params) {
   $.each(filters, function (key, value) {
     if (value === "" || value === 0) {
-      let doNothing;
+      // ne rien faire
     } else if (params.get(key)) {
       params.set(key, value);
     } else {

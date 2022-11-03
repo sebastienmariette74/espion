@@ -47,7 +47,6 @@ class AgentRepository extends ServiceEntityRepository
        return $this->createQueryBuilder('a')
             ->select('a.id, a.firstname, a.lastname, a.dateOfBirth, a.code, n.nationality')
             ->innerJoin('a.nationality', 'n')
-            // ->innerJoin("a.speciality", "s")
            ->getQuery()
            ->getResult()
        ;

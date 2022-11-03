@@ -30,29 +30,27 @@ class TargetController extends AbstractController
         $targets = $targetRepo->findAll();
 
         if (!$request->get('ajax')) {
-            $offset = 9;
-            $paginate = $pagination->pagination($request, $targetRepo, $offset, "getPaginated", null, null, "getTotal");
+            $limit = 9;
+            $paginate = $pagination->pagination($request, $targetRepo, $limit, "getPaginated", null, null, "getTotal");
             $targets = $paginate['response'];
             $total = $paginate['total'];
-            $limit = $paginate['limit'];
             $page = $paginate['page'];
 
-            return $this->render('target/index.html.twig', compact('targets', 'total', 'limit', 'page', 'offset'));
+            return $this->render('target/index.html.twig', compact('targets', 'total', 'limit', 'page'));
         } else {            
 
             // tableau de tous les filtres
             $filters = [];
             $query = htmlentities($request->get("query"));
-            $offset = (int)(htmlentities($request->get("offset")));
+            $limit = (int)(htmlentities($request->get("limit")));
             
             // pagination
-            $paginate = $pagination->pagination($request, $targetRepo, $offset, "getPaginated", $filters, $query, "getTotal");
+            $paginate = $pagination->pagination($request, $targetRepo, $limit, "getPaginated", $filters, $query, "getTotal");
             $targets = $paginate['response'];
             $total = $paginate['total'];
-            $limit = $paginate['limit'];
             $page = $paginate['page'];
 
-            return $this->render('target/_content.html.twig', compact('targets', 'total', 'limit', 'page', 'offset'));
+            return $this->render('target/_content.html.twig', compact('targets', 'total', 'limit', 'page'));
         }
     }
 

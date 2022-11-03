@@ -6,21 +6,28 @@ form {
         width: 20px;
     }
 
-    .agent {
-        overflow: auto;
-    }
+    // .agent {
+    //     overflow: auto;
+    // }
 }
 
-.offset span {
+.limit span {
     line-height: 38px;
 }
 
-#offset {
+#limit {
     width: 60px;
 }
 
-#mission_hidingPlace option {    
+.form-create #mission_hidingPlace option {    
     text-decoration: underline;
     color : #0D6EFD;
     cursor: pointer;
 }
+
+.form-edit #mission_agent option {    
+    text-decoration: underline;
+    color : #0D6EFD;
+    cursor: pointer;
+}
+

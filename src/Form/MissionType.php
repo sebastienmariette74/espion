@@ -29,6 +29,7 @@ use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
+use Symfony\Component\HttpFoundation\Request;
 
 class MissionType extends AbstractType
 {
@@ -173,51 +174,40 @@ class MissionType extends AbstractType
                 },
             ]);
 
+        // $builder->addEventListener(
+        //     FormEvents::PRE_SET_DATA,
+        //     function (FormEvent $event) {
+        //         $form = $event->getForm();
+        //         $data = $event->getData();
+        //         $contacts = $data->getContact();
 
-        $builder->addEventListener(
-            FormEvents::PRE_SET_DATA,
-            function (FormEvent $event) {
-                $form = $event->getForm();
-                $data = $event->getData();
-                $contacts = $data->getContact();
-
-                $form->add('contact', EntityType::class, [
-                        'placeholder' => 'Contact(s)',
-                        'class' => Contact::class,
-                        'label' => 'Contact(s)',
-                        'multiple' => true,
-                        "required" => true,
-                        'choices' => $contacts,
-                        'query_builder' => function (ContactRepository $cr) {
-                            return $cr->createQueryBuilder('c')
-                                ->orderBy('c.code', 'ASC');
-                        },
-                        'choice_label' => function (Contact $contact) {
-                            return $contact->getCode() . ' (' . $contact->getCountry() . ')';
-                        }
-                    ])
-                ;
-            }
-        );       
-
+        //         $form->add('contact', EntityType::class, [
+        //                 'placeholder' => 'Contact(s)',
+        //                 'class' => Contact::class,
+        //                 'label' => 'Contact(s)',
+        //                 'multiple' => true,
+        //                 "required" => true,
+        //                 'choices' => $contacts,
+        //                 'query_builder' => function (ContactRepository $cr) {
+        //                     return $cr->createQueryBuilder('c')
+        //                         ->orderBy('c.code', 'ASC');
+        //                 },
+        //                 'choice_label' => function (Contact $contact) {
+        //                     return $contact->getCode() . ' (' . $contact->getCountry() . ')';
+        //                 }
+        //             ])
+        //         ;
+        //     }
+        // );
+        
         $builder->get('country')->addEventListener(
             FormEvents::POST_SUBMIT,
             function (FormEvent $event) {
                 $data = $event->getForm()->getData();
+                dump($data);
                 $form = $event->getForm()->getParent();
                 $hidingPlaces = null === $data ? [] : $data->getHidingPlaces();
                 $contacts = null === $data ? [] : $data->getContacts();
-                $form->add('type', EntityType::class, [
-                    'placeholder' => 'Type',
-                    'class' => TypeMission::class,
-                    'label' => 'Type',
-                    "required" => false,
-                    'query_builder' => function (TypeMissionRepository $tr) {
-                        return $tr->createQueryBuilder('t')
-                            ->orderBy('t.name', 'ASC');
-                    },
-                    'choice_label' => 'name'
-                ]);
 
                 $form->add('hidingPlace', EntityType::class, [
                     'class' => HidingPlace::class,
@@ -234,6 +224,7 @@ class MissionType extends AbstractType
                         'placeholder' => 'Contact(s)',
                         'class' => Contact::class,
                         'label' => 'Contact(s)',
+
                         'multiple' => true,
                         "required" => true,
                         'choices' => $contacts,
@@ -248,12 +239,14 @@ class MissionType extends AbstractType
             }
         );
 
+
+
         $builder->get('target')->addEventListener(
             FormEvents::POST_SUBMIT,
             function (FormEvent $event) {
                 $data = $event->getForm()->getData();
                 $form = $event->getForm()->getParent();
-
+                dump($data);
                 $countries = [];
                 foreach ($data as $x) {
                     $countries[] = $x->getCountry()->getName();

@@ -11,8 +11,7 @@ $(".content").on("click", ".page-link", function (e) {
         $(`.content`).html(response.data);
       })
       .catch((error) => {
-        // '${.content}'.html = `Erreur: ${error.message}`;
-        // '${.content}'.parent().html = `Erreur: ${error.message}`;
+        '${.content}'.parent().html = `Erreur: ${error.message}`;
         console.error("Il y a une erreur dans la requête", error);
       });
 });

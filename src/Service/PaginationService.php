@@ -28,7 +28,6 @@ class PaginationService extends ServiceEntityRepository
 
         return [ 
             'page' => $page,
-            'limit' => $limit,
             'total' => $total,
             'response' => $response,
         ];
