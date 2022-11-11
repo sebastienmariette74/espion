@@ -1,8 +1,13 @@
 
 {% set queryParams = app.request.query.all %}
 {% set queryString = queryParams|filter((v, k) => k != "page" )|url_encode %}
+{% if queryString == "" %}
+{% set queryString = "limit=9&ajax=1" %}
+{% endif %}
+
 
 {% set pages = ((total / limit)|round(0, 'ceil')) %}
+{{ dump(queryParams, queryString, pages, total, limit)}}
 
 <ul class="pagination d-flex justify-content-center mt-3">
     <li class="page-item {{ (page == 1) ? 'disabled' : '' }}">
